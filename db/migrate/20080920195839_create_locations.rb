@@ -5,10 +5,12 @@ class CreateLocations < ActiveRecord::Migration
       t.string :city
       t.string :state
       t.string :zip
-      t.string :reported_by
+      t.string :signs
 
       t.timestamps
     end
+    
+    add_index :locations, :signs
   end
 
   def self.down

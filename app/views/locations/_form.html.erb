@@ -1,0 +1,27 @@
+<% form_for(@location) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :street %><br />
+    <%= f.text_field :street %>
+  </p>
+  <p>
+    <%= f.label :city %><br />
+    <%= f.text_field :city %>
+  </p>
+  <p>
+    <%= f.label :state %><br />
+    <%= f.text_field :state %>
+  </p>
+  <p>
+    <%= f.label :zip %><br />
+    <%= f.text_field :zip %>
+  </p>
+  <p>
+    <%= f.label :signs %><br />
+    <%= f.select :signs, Location::SIGN_OPTIONS %>
+  </p>
+  <p>
+    <%= f.submit "Save" %>
+  </p>
+<% end %>
