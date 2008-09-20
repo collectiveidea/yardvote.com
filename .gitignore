@@ -1,0 +1,8 @@
+config/database.yml
+tmp/*
+log/*.log
+db/*.sqlite3
+.DS_Store
+.rake_tasks
+backups
+coverage
