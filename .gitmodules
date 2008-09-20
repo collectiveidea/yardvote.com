@@ -19,3 +19,9 @@
 [submodule "vendor/plugins/rspec_on_rails"]
 	path = vendor/plugins/rspec_on_rails
 	url = git://github.com/dchelimsky/rspec-rails.git
+[submodule "vendor/gems/graticule"]
+	path = vendor/gems/graticule
+	url = git://github.com/collectiveidea/graticule.git
+[submodule "vendor/plugins/acts_as_geocodable"]
+	path = vendor/plugins/acts_as_geocodable
+	url = git://github.com/collectiveidea/acts_as_geocodable.git
