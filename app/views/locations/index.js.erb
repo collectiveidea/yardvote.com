@@ -1,0 +1,30 @@
+function show_map() {
+  if (GBrowserIsCompatible()) {
+    var map = new GMap2(document.getElementById("map"));
+    map.setCenter(new GLatLng(42.77309, -86.101754), 12);
+    map.addControl(new GLargeMapControl());
+    map.addControl(new GMapTypeControl());
+    map.addControl(new GScaleControl());
+    map.addControl(new GOverviewMapControl());
+    
+    <%- Location::SIGN_OPTIONS.each do |color| -%>
+      var marker<%= color %> = new GIcon(G_DEFAULT_ICON);
+      marker<%= color %>.image = "http://labs.google.com/ridefinder/images/mm_20_<%= color.downcase %>.png";
+      marker<%= color %>.shadow = "http://labs.google.com/ridefinder/images/mm_20_shadow.png";
+      marker<%= color %>.iconSize = new GSize(12, 20);
+      marker<%= color %>.shadowSize = new GSize(22, 20);
+      marker<%= color %>.iconAnchor = new GPoint(6, 20);
+      marker<%= color %>.infoWindowAnchor = new GPoint(5, 1);
+    <%- end -%>
+    
+    <%- @locations.each do |location| -%>
+      var point = new GLatLng(<%= location.geocode.latitude %>,
+                              <%= location.geocode.longitude %>);
+      map.addOverlay(new GMarker(point, {icon:marker<%= location.signs %>}));
+    <%- end -%>
+    
+  }
+}
+
+document.observe("dom:loaded", show_map);
+window.observe("unload", GUnload);

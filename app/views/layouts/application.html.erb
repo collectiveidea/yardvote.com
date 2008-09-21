@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>Political Signs</title>
+    <%= stylesheet_link_tag 'scaffold', 'main', :cache => true %>
+    <%= yield(:head) -%>
+  </head>
+  <body>
+
+    <p style="color: green"><%= flash[:notice] %></p>
+
+    <%= yield  %>
+
+  </body>
+</html>
