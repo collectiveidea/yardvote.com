@@ -6,6 +6,12 @@ A experimental app to map who's displaying candidate signs before the election.
 
 The source is provided and contributions are welcome.  The app happens to be a simple example of two Collective Idea libraries, Graticule and acts_as_geocodable.
 
+== What's next?
+
+We're not sure. The initial goal was to get something to play with.  
+
+Want to help?  Want to add cool features?  Want to change the map focus to be more national?  The code is here so you can send us pull requests, patches, etc.
+
 == Installation
 
 We're using git-submodules, but otherwise its a simple Rails app.
