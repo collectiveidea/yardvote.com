@@ -3,9 +3,12 @@
   <script src="http://ajax.googleapis.com/ajax/libs/prototype/1.6/prototype.js" type="text/javascript"></script>
   <%= javascript_include_tag locations_path %>
 <%- end -%>
-<h1>Listing locations</h1>
+
+<p>What can mapping Obama &amp McCain signs tell us about our neighborhoods and political climate?  We don't know either, so we're trying to find out.</p>
 
 <div id="map"></div>
+
+<%= link_to 'Add a location', new_location_path %>
 
 <table>
   <tr>
@@ -32,4 +35,4 @@
 
 <br />
 
-<%= link_to 'New location', new_location_path %>
+<%= link_to 'Add a location', new_location_path %>

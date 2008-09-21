@@ -1,0 +1,43 @@
+#collectiveidea {
+  background: #000 url(../images/header_gradient.gif) repeat-x;
+  color: #FFF;
+  padding: 0.4em 0.6em;
+  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+#collectiveidea a {
+  color: #FFF;
+  text-transform: lowercase;
+  text-decoration: none;
+}
+
+#collectiveidea a:hover {
+  text-decoration: underline;
+}
+
+#collectiveidea img {
+  border: none;
+  vertical-align: text-bottom;
+}
+
+#collectiveidea img.logo {
+  display: block;
+  float: left;
+}
+
+#collectiveidea ul.links {
+  text-align: right;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#collectiveidea ul.links li {
+  display: inline;
+  padding: 0 1em;
+  border-right: 1px solid #666;
+}
+
+#collectiveidea ul.links li.name {
+  border-right: none;
+}

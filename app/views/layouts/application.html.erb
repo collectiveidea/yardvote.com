@@ -3,14 +3,35 @@
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
     <title>Political Signs</title>
-    <%= stylesheet_link_tag 'scaffold', 'main', :cache => true %>
+    <%= stylesheet_link_tag 'collectiveidea', 'main', :cache => true %>
     <%= yield(:head) -%>
   </head>
   <body>
+    <div id="collectiveidea">
+      <a href="http://collectiveidea.com"><img src="/images/header_logo.gif" alt="Collective Idea" class="logo" width="17" height="22" /></a>
+      <ul class="links">
+        <li><a href="http://daniel.collectiveidea.com/blog">Daniel</a></li>
+        <li><a href="http://opensoul.org">Brandon</a></li>
+        <li><a href="http://ryckbost.com/">Brian</a></li>
+        <li><a href="http://microrevie.ws/" title="Microrevie.ws">Microrevie.ws</a></li>
+        <li><a href="http://sessions.collectiveidea.com/" title="Sessions by Collective Idea">Sessions by Collective Idea</a></li>
+        <li class="name"><a href="http://collectiveidea.com"><img src="/images/header_collectiveidea.gif" alt="Collective Idea" width="123" height="21" /></a></li>
+      </ul>
+    </div>
+    <div id="main">
+      <div id="header">
+        <h1><a href="/">Political Signs</a></h1>
+        <ul id="nav">
+          <li><a href="http://twitter.com/danielmorrison/statuses/928612487" title="The tweet that started it all">The Idea</a></li>
+          <li><a href="http://github.com/collectiveidea/political-signs/" title="Source code on Github">The Code</a></li>
+        </ul>
+      </div>
+      <div id="content">
+        <p style="color: green"><%= flash[:notice] %></p>
 
-    <p style="color: green"><%= flash[:notice] %></p>
-
-    <%= yield  %>
+        <%= yield  %>
+      </div>
+    </div>
 
   </body>
 </html>
