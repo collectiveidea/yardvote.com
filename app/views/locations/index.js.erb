@@ -2,6 +2,7 @@ function show_map() {
   if (GBrowserIsCompatible()) {
     var map = new GMap2(document.getElementById("map"));
     map.setCenter(new GLatLng(42.77309, -86.101754), 12);
+    map.enableScrollWheelZoom();
     map.addControl(new GLargeMapControl());
     map.addControl(new GMapTypeControl());
     map.addControl(new GScaleControl());
