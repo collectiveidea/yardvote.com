@@ -28,3 +28,6 @@
 [submodule "vendor/plugins/google_analytics"]
 	path = vendor/plugins/google_analytics
 	url = git://github.com/collectiveidea/google_analytics.git
+[submodule "vendor/plugins/acts_as_paranoid"]
+	path = vendor/plugins/acts_as_paranoid
+	url = git://github.com/technoweenie/acts_as_paranoid.git

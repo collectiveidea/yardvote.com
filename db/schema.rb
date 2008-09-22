@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080920195839) do
+ActiveRecord::Schema.define(:version => 20080922041125) do
 
   create_table "geocodes", :force => true do |t|
     t.decimal "latitude",    :precision => 15, :scale => 12
@@ -22,9 +22,9 @@ ActiveRecord::Schema.define(:version => 20080920195839) do
     t.string  "country"
   end
 
+  add_index "geocodes", ["query"], :name => "geocodes_query_index", :unique => true
   add_index "geocodes", ["longitude"], :name => "geocodes_longitude_index"
   add_index "geocodes", ["latitude"], :name => "geocodes_latitude_index"
-  add_index "geocodes", ["query"], :name => "geocodes_query_index", :unique => true
 
   create_table "geocodings", :force => true do |t|
     t.integer "geocodable_id"
@@ -44,8 +44,10 @@ ActiveRecord::Schema.define(:version => 20080920195839) do
     t.string   "signs"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
   end
 
+  add_index "locations", ["deleted_at"], :name => "index_locations_on_deleted_at"
   add_index "locations", ["signs"], :name => "index_locations_on_signs"
 
 end
