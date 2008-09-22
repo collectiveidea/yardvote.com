@@ -1,9 +1,9 @@
 class Location < ActiveRecord::Base
-  SIGN_OPTIONS = %w(Blue Red)
+  SIGN_OPTIONS = %w(Blue Red Purple)
   
   acts_as_geocodable :address => {:street => :street, :locality => :city,
 	  :region => :state, :postal_code => :zip}, :normalize_address => true
 	  
-  validates_inclusion_of :signs, :in => SIGN_OPTIONS, :message => 'must be Blue or Red'
+  validates_inclusion_of :signs, :in => SIGN_OPTIONS, :message => 'must be Blue, Red or Purple'
   
 end
