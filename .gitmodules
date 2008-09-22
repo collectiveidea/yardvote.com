@@ -25,3 +25,6 @@
 [submodule "vendor/plugins/acts_as_geocodable"]
 	path = vendor/plugins/acts_as_geocodable
 	url = git://github.com/collectiveidea/acts_as_geocodable.git
+[submodule "vendor/plugins/google_analytics"]
+	path = vendor/plugins/google_analytics
+	url = git://github.com/collectiveidea/google_analytics.git
