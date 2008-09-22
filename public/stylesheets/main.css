@@ -3,6 +3,13 @@
   width: 700px;
 }
 
+th {
+  text-align: left;
+}
+td {
+  padding-right: 1em;
+}
+
 body {
   font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
   font-size: 76%;

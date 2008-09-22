@@ -4,7 +4,7 @@
   <%= javascript_include_tag locations_path %>
 <%- end -%>
 
-<p>What can mapping Obama &amp McCain signs tell us about our neighborhoods and political climate?  We don't know either, so we're trying to find out.</p>
+<p>What can mapping Obama &amp; McCain signs tell us about our neighborhoods and political climate?  We don't know either, so we're trying to find out.</p>
 
 <div id="map"></div>
 
@@ -12,20 +12,25 @@
 
 <table>
   <tr>
+    <th></th>
     <th>Street</th>
     <th>City</th>
     <th>State</th>
     <th>Zip</th>
     <th>Signs</th>
+    <th>Reported on</th>
+    <th colspan="3"></th>
   </tr>
 
 <% for location in @locations %>
   <tr>
+    <td><%= image_tag "http://labs.google.com/ridefinder/images/mm_20_#{location.signs.downcase}.png"%></td>
     <td><%=h location.street %></td>
     <td><%=h location.city %></td>
     <td><%=h location.state %></td>
     <td><%=h location.zip %></td>
     <td><%=h location.signs %></td>
+    <td><%=h location.created_at.strftime('%d %B') %></td>
     <td><%= link_to 'Show', location %></td>
     <td><%= link_to 'Edit', edit_location_path(location) %></td>
     <td><%= link_to 'Destroy', location, :confirm => 'Are you sure?', :method => :delete %></td>
