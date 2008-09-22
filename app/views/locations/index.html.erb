@@ -4,7 +4,7 @@
   <%= javascript_include_tag locations_path %>
 <%- end -%>
 
-<p>What can mapping Obama &amp; McCain signs tell us about our neighborhoods and political climate?  We don't know either, so we're trying to find out.</p>
+<p>What can mapping Obama &amp; McCain yard signs tell us about our neighborhoods and political climate?  We don't know either, so we're trying to find out. Join the fun by <%= link_to 'reporting a sign', new_location_path %></p>
 
 <div id="map"></div>
 
@@ -24,7 +24,7 @@
 
 <% for location in @locations %>
   <tr>
-    <td><%= image_tag "http://labs.google.com/ridefinder/images/mm_20_#{location.signs.downcase}.png"%></td>
+    <td><%= image_tag "http://labs.google.com/ridefinder/images/mm_20_#{location.signs.downcase}.png", :alt => location.signs %></td>
     <td><%=h location.street %></td>
     <td><%=h location.city %></td>
     <td><%=h location.state %></td>

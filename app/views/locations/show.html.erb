@@ -23,6 +23,14 @@
   <%=h @location.signs %>
 </p>
 
+<%- if @location.geocode -%>
+  <p>
+    <b>Latitude:</b> <%=h @location.geocode.latitude %><br>
+    <b>Longitude:</b> <%=h @location.geocode.longitude %>
+  </p>
+<%- end -%>
+
 
 <%= link_to 'Edit', edit_location_path(@location) %> |
-<%= link_to 'Back', locations_path %>
+<%= link_to 'Back to Map', locations_path %>
+<%= link_to 'Add Another', new_location_path %>
