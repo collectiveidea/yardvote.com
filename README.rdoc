@@ -1,6 +1,6 @@
 = Political Signs 
 
-http://signs.collectividea.com/
+http://signs.collectiveidea.com/
 
 A experimental app to map who's displaying candidate signs before the election.
 
