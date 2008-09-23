@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(:version => 20080922041125) do
   end
 
   add_index "geocodes", ["query"], :name => "geocodes_query_index", :unique => true
-  add_index "geocodes", ["longitude"], :name => "geocodes_longitude_index"
   add_index "geocodes", ["latitude"], :name => "geocodes_latitude_index"
+  add_index "geocodes", ["longitude"], :name => "geocodes_longitude_index"
 
   create_table "geocodings", :force => true do |t|
     t.integer "geocodable_id"
@@ -32,9 +32,9 @@ ActiveRecord::Schema.define(:version => 20080922041125) do
     t.string  "geocodable_type"
   end
 
-  add_index "geocodings", ["geocodable_type"], :name => "geocodings_geocodable_type_index"
-  add_index "geocodings", ["geocode_id"], :name => "geocodings_geocode_id_index"
   add_index "geocodings", ["geocodable_id"], :name => "geocodings_geocodable_id_index"
+  add_index "geocodings", ["geocode_id"], :name => "geocodings_geocode_id_index"
+  add_index "geocodings", ["geocodable_type"], :name => "geocodings_geocodable_type_index"
 
   create_table "locations", :force => true do |t|
     t.string   "street"

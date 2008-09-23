@@ -8,7 +8,7 @@ function show_map() {
     map.addControl(new GScaleControl());
     map.addControl(new GOverviewMapControl());
     
-    <%- Location::SIGN_OPTIONS.each do |color| -%>
+    <%- Location::SIGN_OPTIONS.keys.each do |color| -%>
       var marker<%= color %> = new GIcon(G_DEFAULT_ICON);
       marker<%= color %>.image = "http://labs.google.com/ridefinder/images/mm_20_<%= color.downcase %>.png";
       marker<%= color %>.shadow = "http://labs.google.com/ridefinder/images/mm_20_shadow.png";

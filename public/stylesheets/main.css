@@ -11,21 +11,98 @@ td {
   padding-right: 1em;
 }
 
+form {
+  background-color: #EEE;
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
 fieldset {
-  display: inline;
   border: none;
-  width: 46%;
+  padding: 0;
+}
+
+fieldset.sign {
+  width: 40%;
   float: left;
 }
+
+fieldset.sign ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+fieldset.sign ul li {
+  padding-left: 30px;
+  position: relative;
+  margin-bottom: 9px;
+}
+fieldset.sign ul li input {
+  position: absolute;
+  left: 0;
+  top: 2px;
+}
+
+fieldset.sign label {
+  font-weight: normal;
+  font-size: 10px;
+  color: #666;
+}
+
+fieldset.sign label span {
+  font-weight: bold;
+  font-size: 16px;
+  display: block;
+}
+li.blue, li.blue span {
+  color: #369;
+}
+li.purple, li.purple span {
+  color: purple;
+}
+li.red, li.red span {
+  color: #C00;
+}
+
+fieldset.address input {
+  font-size: 2em;
+}
+
 fieldset legend {
   font-size: 175%;
   font-weight: bold;
   color: #2D5385;
+  margin: 0 0 0.5em 0;
+}
+fieldset ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-label {
-  width: 8em;
+fieldset .street input {
+  width: 360px;
+}
+fieldset .city, fieldset .state, fieldset .zip {
   float: left;
+  margin: 9px 9px 0 0;
+}
+fieldset .city input {
+  width: 200px;
+}
+fieldset .state input {
+  width: 40px;
+}
+fieldset .zip input {
+  width: 90px;
+}
+
+fieldset.address label {
+  font-size: 0.8em;
+  color: #666;
+  text-transform: uppercase;
+  display: block;
   font-weight: bold;
 }
 
@@ -33,11 +110,8 @@ fieldset p {
   float: none;
 }
 fieldset.buttons {
-  width: 94%;
   text-align: center;
-  margin-bottom: 1em;
-}
-label, input#location_submit, table {
+  margin-top: 1em;
   clear: left;
 }
 

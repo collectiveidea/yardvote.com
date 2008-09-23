@@ -1,28 +1,42 @@
 <% form_for(@location) do |f| %>
   <%= f.error_messages %>
   
-  <fieldset>
+  <fieldset class="sign">
     <legend>Report a Sign</legend>
   
-    <%= f.label :signs, "Yard Signs" %>
-    <%= f.select :signs, Location::SIGN_OPTIONS %>
-    
-    <p>Blue for Obama &amp; Democrats, Red for McCain &amp; Republicans, Purple for a combination (ex. Obama + Republican Senator)</p>
+    <ul>
+      <% Location::SIGN_OPTIONS.sort_by {|k,_| k }.each do |sign,description| %>
+        <li class="<%=h sign.downcase %>">
+          <%= f.radio_button :signs, sign %>
+          <label for="location_signs_<%= sign.downcase %>">
+            <span><%= sign %></span>
+            <%=h description %>
+          </label>
+        </li>
+      <% end %>
+    </ul>
   </fieldset>
   
-  <fieldset>
+  <fieldset class="address">
     <legend>Where</legend>
-    <%= f.label :street %>
-    <%= f.text_field :street, :size => 25 %>
-
-    <%= f.label :city %>
-    <%= f.text_field :city, :size => 25 %>
-
-    <%= f.label :state %>
-    <%= f.text_field :state, :size => 2 %>
-
-    <%= f.label :zip %>
-    <%= f.text_field :zip, :size => 10 %>
+    <ol>
+      <li class="street">
+        <%= f.label :street %>
+        <%= f.text_field :street, :size => 25 %>
+      </li>
+      <li class="city">
+        <%= f.label :city %>
+        <%= f.text_field :city, :size => 25 %>
+      </li>
+      <li class="state">
+        <%= f.label :state %>
+        <%= f.text_field :state, :size => 2 %>
+      </li>
+      <li class="zip">
+        <%= f.label :zip %>
+        <%= f.text_field :zip, :size => 10 %>
+      </li>
+    <ol>
   </fieldset>
   
   <fieldset class="buttons">
