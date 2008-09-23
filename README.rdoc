@@ -20,6 +20,7 @@ We're using git-submodules, but otherwise its a simple Rails app.
   cd political-signs
   git submodule init
   git submodule update
+  cp config/database.sample.yml config/database.yml
 
 == Credits
 

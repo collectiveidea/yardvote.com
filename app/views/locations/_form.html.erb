@@ -1,28 +1,31 @@
 <% form_for(@location) do |f| %>
   <%= f.error_messages %>
+  
+  <fieldset>
+    <legend>Report a Sign</legend>
+  
+    <%= f.label :signs, "Yard Signs" %>
+    <%= f.select :signs, Location::SIGN_OPTIONS %>
+    
+    <p>Blue for Obama &amp; Democrats, Red for McCain &amp; Republicans, Purple for a combination (ex. Obama + Republican Senator)</p>
+  </fieldset>
+  
+  <fieldset>
+    <legend>Where</legend>
+    <%= f.label :street %>
+    <%= f.text_field :street, :size => 25 %>
 
-  <p>
-    <%= f.label :street %><br />
-    <%= f.text_field :street %>
-  </p>
-  <p>
-    <%= f.label :city %><br />
-    <%= f.text_field :city %>
-  </p>
-  <p>
-    <%= f.label :state %><br />
-    <%= f.text_field :state %>
-  </p>
-  <p>
-    <%= f.label :zip %><br />
-    <%= f.text_field :zip %>
-  </p>
-  <p>
-    <%= f.label :signs, "Yard Signs" %><br />
-    <%= f.select :signs, Location::SIGN_OPTIONS %><br />
-    Blue for Obama &amp; Democrats, Red for McCain &amp; Republicans, Purple for a combination (ex. Obama + Republican Senator)
-  </p>
-  <p>
+    <%= f.label :city %>
+    <%= f.text_field :city, :size => 25 %>
+
+    <%= f.label :state %>
+    <%= f.text_field :state, :size => 2 %>
+
+    <%= f.label :zip %>
+    <%= f.text_field :zip, :size => 10 %>
+  </fieldset>
+  
+  <fieldset class="buttons">
     <%= f.submit "Save" %>
-  </p>
+  </fieldset>
 <% end %>

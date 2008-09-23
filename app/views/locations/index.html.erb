@@ -4,11 +4,11 @@
   <%= javascript_include_tag locations_path %>
 <%- end -%>
 
-<p>What can mapping Obama &amp; McCain yard signs tell us about our neighborhoods and political climate?  We don't know either, so we're trying to find out. Join the fun by <%= link_to 'reporting a sign', new_location_path %>.</p>
+<p>What can mapping Obama &amp; McCain yard signs tell us about our neighborhoods and political climate?  We don't know either, so we're trying to find out. Join the fun by <%= link_to 'reporting a sign', '#new_location' %>.</p>
 
 <div id="map"></div>
 
-<%= link_to 'Add a location', new_location_path %>
+<%= render :partial => 'form' %>
 
 <table>
   <tr>

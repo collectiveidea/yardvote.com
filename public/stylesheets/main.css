@@ -1,6 +1,7 @@
 #map {
   height: 400px;
   width: 700px;
+  margin-bottom: 1em;
 }
 
 th {
@@ -8,6 +9,36 @@ th {
 }
 td {
   padding-right: 1em;
+}
+
+fieldset {
+  display: inline;
+  border: none;
+  width: 46%;
+  float: left;
+}
+fieldset legend {
+  font-size: 175%;
+  font-weight: bold;
+  color: #2D5385;
+}
+
+label {
+  width: 8em;
+  float: left;
+  font-weight: bold;
+}
+
+fieldset p {
+  float: none;
+}
+fieldset.buttons {
+  width: 94%;
+  text-align: center;
+  margin-bottom: 1em;
+}
+label, input#location_submit, table {
+  clear: left;
 }
 
 body {

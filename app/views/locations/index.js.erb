@@ -19,11 +19,9 @@ function show_map() {
     <%- end -%>
     
     <%- @locations.each do |location| -%>
-      var point = new GLatLng(<%= location.geocode.latitude %>,
-                              <%= location.geocode.longitude %>);
+      var point = new GLatLng(<%= location.geocode.latitude %>, <%= location.geocode.longitude %>);
       map.addOverlay(new GMarker(point, {icon:marker<%= location.signs %>}));
     <%- end -%>
-    
   }
 }
 

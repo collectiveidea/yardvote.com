@@ -3,6 +3,7 @@ class LocationsController < ApplicationController
   # GET /locations.xml
   def index
     @locations = Location.all(:include => {:geocoding => :geocode})
+    @location = Location.new
 
     respond_to do |format|
       format.html # index.html.erb
