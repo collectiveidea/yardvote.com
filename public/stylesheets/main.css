@@ -23,7 +23,7 @@ fieldset {
 }
 
 fieldset.sign {
-  width: 40%;
+  width: 42%;
   float: left;
 }
 
@@ -112,7 +112,7 @@ fieldset p {
 fieldset.buttons {
   text-align: center;
   margin-top: 1em;
-  clear: left;
+  clear: both;
 }
 
 body {
