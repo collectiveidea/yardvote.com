@@ -82,10 +82,11 @@ fieldset.address input {
 }
 
 fieldset legend {
-  font-size: 175%;
+  font-size: 2em;
   font-weight: bold;
-  color: #2D5385;
+  color: #000;
   margin: 0 0 0.5em 0;
+  padding: 0;
 }
 fieldset ol {
   list-style: none;

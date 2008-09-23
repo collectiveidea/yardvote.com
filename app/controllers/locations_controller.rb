@@ -49,6 +49,7 @@ class LocationsController < ApplicationController
       if @location.save
         flash[:notice] = 'Location was successfully created.'
         format.html { redirect_to(@location) }
+        format.js
         format.xml  { render :xml => @location, :status => :created, :location => @location }
       else
         format.html { render :action => "new" }

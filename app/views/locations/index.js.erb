@@ -1,6 +1,19 @@
+var map;
+
+var markers = {};
+<%= Location::SIGN_OPTIONS.keys.to_json %>.each(function(color) {
+  markers[color] = new GIcon(G_DEFAULT_ICON);
+  markers[color].image = 'http://labs.google.com/ridefinder/images/mm_20_' + color.toLowerCase() + '.png';
+  markers[color].shadow = 'http://labs.google.com/ridefinder/images/mm_20_shadow.png';
+  markers[color].iconSize = new GSize(12, 20);
+  markers[color].shadowSize = new GSize(22, 20);
+  markers[color].iconAnchor = new GPoint(6, 20);
+  markers[color].infoWindowAnchor = new GPoint(5, 1);
+});
+
 function show_map() {
   if (GBrowserIsCompatible()) {
-    var map = new GMap2(document.getElementById("map"));
+    map = new GMap2(document.getElementById("map"));
     map.setCenter(new GLatLng(42.77309, -86.101754), 12);
     map.enableScrollWheelZoom();
     map.addControl(new GLargeMapControl());
@@ -8,22 +21,13 @@ function show_map() {
     map.addControl(new GScaleControl());
     map.addControl(new GOverviewMapControl());
     
-    <%- Location::SIGN_OPTIONS.keys.each do |color| -%>
-      var marker<%= color %> = new GIcon(G_DEFAULT_ICON);
-      marker<%= color %>.image = "http://labs.google.com/ridefinder/images/mm_20_<%= color.downcase %>.png";
-      marker<%= color %>.shadow = "http://labs.google.com/ridefinder/images/mm_20_shadow.png";
-      marker<%= color %>.iconSize = new GSize(12, 20);
-      marker<%= color %>.shadowSize = new GSize(22, 20);
-      marker<%= color %>.iconAnchor = new GPoint(6, 20);
-      marker<%= color %>.infoWindowAnchor = new GPoint(5, 1);
-    <%- end -%>
-    
-    <%- @locations.each do |location| -%>
-      var point = new GLatLng(<%= location.geocode.latitude %>, <%= location.geocode.longitude %>);
-      map.addOverlay(new GMarker(point, {icon:marker<%= location.signs %>}));
-    <%- end -%>
+    // <% @locations.each do |location| %>
+    //   var point = new GLatLng(<%= location.geocode.latitude %>, <%= location.geocode.longitude %>);
+    //   map.addOverlay(new GMarker(point, {icon:markers[<%= location.signs.to_json %>]}));
+    // <% end %>
+    <%= render :partial => @locations %>
   }
 }
 
-document.observe("dom:loaded", show_map);
-window.observe("unload", GUnload);
+Event.observe(window, "dom:loaded", show_map);
+Event.observe(window, "unload", GUnload);

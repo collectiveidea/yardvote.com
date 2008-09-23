@@ -1,0 +1,2 @@
+var point = new GLatLng(<%= location.geocode.latitude %>, <%= location.geocode.longitude %>);
+map.addOverlay(new GMarker(point, {icon:markers[<%= location.signs.to_json %>]}));
