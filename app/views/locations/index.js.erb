@@ -21,10 +21,6 @@ function show_map() {
     map.addControl(new GScaleControl());
     map.addControl(new GOverviewMapControl());
     
-    // <% @locations.each do |location| %>
-    //   var point = new GLatLng(<%= location.geocode.latitude %>, <%= location.geocode.longitude %>);
-    //   map.addOverlay(new GMarker(point, {icon:markers[<%= location.signs.to_json %>]}));
-    // <% end %>
     <%= render :partial => @locations %>
   }
 }
