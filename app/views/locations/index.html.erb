@@ -6,6 +6,12 @@
 
 <p>What can mapping Obama &amp; McCain yard signs tell us about our neighborhoods and political climate?  We don't know either, so we're trying to find out. Join the fun by <%= link_to 'reporting a sign', '#new_location' %>.</p>
 
+<ul id="counts">
+  <%- Location.sign_counts.each do |count| -%>
+    <li class="<%=h count.signs.downcase %>"><%=h pluralize count.count, "#{count.signs} Sign" %></li>
+  <%- end -%>
+</ul>
+
 <div id="map"></div>
 
 <%= render :partial => 'form' %>
@@ -40,4 +46,4 @@
 
 <br />
 
-<%= link_to 'Add a location', new_location_path %>
+<%= link_to 'Add a location', '#new_location' %>
