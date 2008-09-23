@@ -9,6 +9,7 @@ class LocationsController < ApplicationController
       format.html # index.html.erb
       format.js
       format.xml  { render :xml => @locations }
+      format.atom
     end
   end
 
