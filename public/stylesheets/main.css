@@ -5,6 +5,10 @@
   clear: both;
 }
 
+#notice {
+  color: green;
+}
+
 #counts li {
   display: block;
   float: left;

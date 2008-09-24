@@ -13,12 +13,12 @@
     <div id="collectiveidea">
       <a href="http://collectiveidea.com"><img src="/images/header_logo.gif" alt="Collective Idea" class="logo" width="17" height="22" /></a>
       <ul class="links">
-        <li><a href="http://daniel.collectiveidea.com/blog">Daniel</a></li>
-        <li><a href="http://opensoul.org">Brandon</a></li>
-        <li><a href="http://ryckbost.com/">Brian</a></li>
+        <li><a href="http://daniel.collectiveidea.com/blog" title="Daniel Morrison">Daniel</a></li>
+        <li><a href="http://opensoul.org" title="Brandon Keepers">Brandon</a></li>
+        <li><a href="http://ryckbost.com/" title="Brian Ryckbost">Brian</a></li>
         <li><a href="http://microrevie.ws/" title="Microrevie.ws">Microrevie.ws</a></li>
         <li><a href="http://sessions.collectiveidea.com/" title="Sessions by Collective Idea">Sessions by Collective Idea</a></li>
-        <li class="name"><a href="http://collectiveidea.com"><img src="/images/header_collectiveidea.gif" alt="Collective Idea" width="123" height="21" /></a></li>
+        <li class="name"><a href="http://collectiveidea.com" title="Collective Idea"><img src="/images/header_collectiveidea.gif" alt="Collective Idea" width="123" height="21" /></a></li>
       </ul>
     </div>
     <div id="main">
@@ -27,11 +27,12 @@
         <ul id="nav">
           <li><a href="http://twitter.com/danielmorrison/statuses/928612487" title="The tweet that started it all">The Idea</a></li>
           <li><a href="http://github.com/collectiveidea/political-signs/" title="Source code on Github">The Code</a></li>
+          <li><a href="http://getsatisfaction.com/collectiveidea/products/collectiveidea_political_signs" title="Help and Feature Requests at Get Satisfaction">Support</a></li>
         </ul>
       </div>
       <div id="content">
         <%- if flash[:notice] -%>
-          <p style="color: green"><%= flash[:notice] %></p>
+          <p id="notice"><%= flash[:notice] %></p>
         <%- end -%>
 
         <%= yield  %>
