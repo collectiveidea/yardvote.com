@@ -23,13 +23,29 @@ function mapLocations(locations) {
 
 function mapLocation(l) {
   var point = new GLatLng(l.location.geocoding.geocode.latitude, l.location.geocoding.geocode.longitude);
-  map.addOverlay(new GMarker(point, {icon:markers[l.location.signs]}));
+  map.addOverlay(new GMarker(point, {icon:marker(l.location.signs)}));
   return point;
 }
 
 function mapLocationAndFocus(location) {
   map.setCenter(mapLocation(location), 14);
   $('map').scrollTo();
+}
+
+
+var markers = {};
+
+function marker(color) {
+  if (!markers[color]) {
+    markers[color] = new GIcon(G_DEFAULT_ICON);
+    markers[color].image = 'http://labs.google.com/ridefinder/images/mm_20_' + color.toLowerCase() + '.png';
+    markers[color].shadow = 'http://labs.google.com/ridefinder/images/mm_20_shadow.png';
+    markers[color].iconSize = new GSize(12, 20);
+    markers[color].shadowSize = new GSize(22, 20);
+    markers[color].iconAnchor = new GPoint(6, 20);
+    markers[color].infoWindowAnchor = new GPoint(5, 1);
+  }
+  return markers[color];
 }
 
 Event.observe(window, "dom:loaded", showMap);
