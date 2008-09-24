@@ -1,5 +1,3 @@
-var map;
-
 var markers = {};
 <%= Location::SIGN_OPTIONS.keys.to_json %>.each(function(color) {
   markers[color] = new GIcon(G_DEFAULT_ICON);
@@ -10,20 +8,3 @@ var markers = {};
   markers[color].iconAnchor = new GPoint(6, 20);
   markers[color].infoWindowAnchor = new GPoint(5, 1);
 });
-
-function show_map() {
-  if (GBrowserIsCompatible()) {
-    map = new GMap2(document.getElementById("map"));
-    map.setCenter(new GLatLng(42.77309, -86.101754), 12);
-    map.enableScrollWheelZoom();
-    map.addControl(new GLargeMapControl());
-    map.addControl(new GMapTypeControl());
-    map.addControl(new GScaleControl());
-    map.addControl(new GOverviewMapControl());
-    
-    <%= render :partial => @locations %>
-  }
-}
-
-Event.observe(window, "dom:loaded", show_map);
-Event.observe(window, "unload", GUnload);

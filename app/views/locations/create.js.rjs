@@ -1,3 +1,0 @@
-page << render(:partial => @location)
-page << "map.setCenter(new GLatLng(#{@location.geocode.latitude}, #{@location.geocode.longitude}), 14);"
-page['map'].scroll_to
