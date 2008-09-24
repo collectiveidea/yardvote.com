@@ -5,7 +5,7 @@
     <title>Political Signs</title>
     <%= stylesheet_link_tag 'collectiveidea', 'main', :cache => true %>
     <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/prototype/1.6/prototype.js' %>
-    <%= javascript_include_tag 'lowpro', 'application', :cache => true %>
+    <%= javascript_include_tag 'lowpro', 'application', 'map', :cache => true %>
     <%= auto_discovery_link_tag :atom, formatted_locations_path(:atom), :title => "Atom Feed" %>
     <%= yield(:head) -%>
   </head>

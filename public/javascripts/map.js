@@ -1,7 +1,8 @@
 var map;
 
 function showMap() {
-  if (GBrowserIsCompatible()) {
+  var mapDiv = $('map')
+  if (mapDiv && GBrowserIsCompatible()) {
     map = new GMap2(document.getElementById("map"));
     map.setCenter(new GLatLng(42.77309, -86.101754), 12);
     map.enableScrollWheelZoom();
@@ -9,6 +10,8 @@ function showMap() {
     map.addControl(new GMapTypeControl());
     map.addControl(new GScaleControl());
     map.addControl(new GOverviewMapControl());
+    
+    Event.observe(window, "unload", GUnload);
   }
 }
 
@@ -30,4 +33,3 @@ function mapLocationAndFocus(location) {
 }
 
 Event.observe(window, "dom:loaded", showMap);
-Event.observe(window, "unload", GUnload);
