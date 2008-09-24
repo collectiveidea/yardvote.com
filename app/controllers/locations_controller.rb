@@ -5,6 +5,11 @@ class LocationsController < ApplicationController
     @locations = Location.all(:include => {:geocoding => :geocode})
     @location = Location.new(:signs => 'Blue')
 
+    # ETags!
+    response.last_modified = @locations.last.updated_at.utc
+    response.etag = @locations.last    
+    head :not_modified and return if request.fresh?(response)
+  
     respond_to do |format|
       format.html # index.html.erb
       format.js
@@ -18,6 +23,11 @@ class LocationsController < ApplicationController
   # GET /locations/1.xml
   def show
     @location = Location.find(params[:id])
+    
+    # ETags!
+    response.last_modified = @location.updated_at.utc
+    response.etag = @location
+    head :not_modified and return if request.fresh?(response)
 
     respond_to do |format|
       format.html # show.html.erb
