@@ -60,7 +60,7 @@ class LocationsController < ApplicationController
       if @location.save
         flash[:notice] = 'Location was successfully created.'
         format.html { redirect_to(@location) }
-        format.js { render :json => @location.to_json, :callback => params[:callback] || 'map_location_and_focus' }
+        format.js { render :json => @location.to_json, :callback => params[:callback] || 'mapLocationAndFocus' }
         format.xml  { render :xml => @location, :status => :created, :location => @location }
       else
         format.html { render :action => "new" }
