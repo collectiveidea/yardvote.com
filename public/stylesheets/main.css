@@ -18,8 +18,12 @@
   font-size: 18pt;
   font-weight: bold;
   text-align: center;
-}
-
+  }
+  #counts li.city, #counts li.state, #counts li.zip {
+    font-size: 14pt;
+    color: #666;
+    width: 49%;
+  }
 th {
   text-align: left;
 }
