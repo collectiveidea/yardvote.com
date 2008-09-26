@@ -2,12 +2,9 @@
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <title>Political Signs</title>
+    <title>YardVote.com</title>
     <%= stylesheet_link_tag 'collectiveidea', 'main', :cache => true %>
-    <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/prototype/1.6/prototype.js' %>
-    <%= javascript_include_tag 'lowpro', 'application', 'map', :cache => true %>
     <%= auto_discovery_link_tag :atom, formatted_locations_path(:atom), :title => "Atom Feed" %>
-    <%= yield(:head) -%>
   </head>
   <body>
     <div id="collectiveidea">
@@ -23,10 +20,10 @@
     </div>
     <div id="main">
       <div id="header">
-        <h1><a href="/">Political Signs</a></h1>
+        <h1><a href="/">YardVote</a></h1>
         <ul id="nav">
           <li><a href="http://twitter.com/danielmorrison/statuses/928612487" title="The tweet that started it all">The Idea</a></li>
-          <li><a href="http://github.com/collectiveidea/political-signs/" title="Source code on Github">The Code</a></li>
+          <li><a href="http://github.com/collectiveidea/yardvote.com/" title="Source code on Github">The Code</a></li>
           <li><a href="http://getsatisfaction.com/collectiveidea/products/collectiveidea_political_signs" title="Help and Feature Requests at Get Satisfaction">Help</a></li>
         </ul>
       </div>
@@ -38,6 +35,8 @@
         <%= yield  %>
       </div>
     </div>
-
+    <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/prototype/1.6/prototype.js' %>
+    <%= javascript_include_tag 'lowpro', 'application', 'map', :cache => true %>
+    <%= yield(:foot) -%>
   </body>
 </html>
