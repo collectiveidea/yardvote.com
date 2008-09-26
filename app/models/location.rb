@@ -9,6 +9,7 @@ class Location < ActiveRecord::Base
 	  :region => :state, :postal_code => :zip}, :normalize_address => true
 	
 	acts_as_paranoid
+	acts_as_audited
 	  
   validates_inclusion_of :signs, :in => SIGN_OPTIONS, :message => "must be #{SIGN_OPTIONS.keys.to_sentence(:connector => 'or')}"
   

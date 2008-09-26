@@ -9,7 +9,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080922041125) do
+ActiveRecord::Schema.define(:version => 20080926205931) do
+
+  create_table "audits", :force => true do |t|
+    t.integer  "auditable_id"
+    t.string   "auditable_type"
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.string   "username"
+    t.string   "action"
+    t.text     "changes"
+    t.integer  "version",        :default => 0
+    t.datetime "created_at"
+  end
+
+  add_index "audits", ["created_at"], :name => "index_audits_on_created_at"
+  add_index "audits", ["user_id", "user_type"], :name => "user_index"
+  add_index "audits", ["auditable_id", "auditable_type"], :name => "auditable_index"
 
   create_table "geocodes", :force => true do |t|
     t.decimal "latitude",    :precision => 15, :scale => 12
@@ -23,8 +39,8 @@ ActiveRecord::Schema.define(:version => 20080922041125) do
   end
 
   add_index "geocodes", ["query"], :name => "geocodes_query_index", :unique => true
-  add_index "geocodes", ["latitude"], :name => "geocodes_latitude_index"
   add_index "geocodes", ["longitude"], :name => "geocodes_longitude_index"
+  add_index "geocodes", ["latitude"], :name => "geocodes_latitude_index"
 
   create_table "geocodings", :force => true do |t|
     t.integer "geocodable_id"
@@ -32,9 +48,9 @@ ActiveRecord::Schema.define(:version => 20080922041125) do
     t.string  "geocodable_type"
   end
 
-  add_index "geocodings", ["geocodable_id"], :name => "geocodings_geocodable_id_index"
-  add_index "geocodings", ["geocode_id"], :name => "geocodings_geocode_id_index"
   add_index "geocodings", ["geocodable_type"], :name => "geocodings_geocodable_type_index"
+  add_index "geocodings", ["geocode_id"], :name => "geocodings_geocode_id_index"
+  add_index "geocodings", ["geocodable_id"], :name => "geocodings_geocodable_id_index"
 
   create_table "locations", :force => true do |t|
     t.string   "street"
