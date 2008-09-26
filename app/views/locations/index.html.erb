@@ -19,34 +19,42 @@
 
 <%= render :partial => 'form' %>
 
-<table>
-  <tr>
-    <th></th>
-    <th>Street</th>
-    <th>City</th>
-    <th>State</th>
-    <th>Zip</th>
-    <th>Signs</th>
-    <th>Reported on</th>
-    <th colspan="3"></th>
-  </tr>
+<h2><%= params[:all] ? "All #{Location.count} Locations" : 'Recent Additions' %></h2>
 
+<%= link_to h("View all #{pluralize Location.count, 'location'}"), all_path unless params[:all] %>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Street</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+      <th>Signs</th>
+      <th>Reported on</th>
+      <th colspan="2"></th>
+    </tr>
+  </tbody>
 <% for location in @locations %>
-  <tr>
-    <td><%= image_tag "http://labs.google.com/ridefinder/images/mm_20_#{location.signs.downcase}.png", :alt => location.signs %></td>
-    <td><%=h location.street %></td>
-    <td><%=h location.city %></td>
-    <td><%=h location.state %></td>
-    <td><%=h location.zip %></td>
-    <td><%=h location.signs %></td>
-    <td><%=h location.created_at.strftime('%d %B') %></td>
-    <td><%= link_to 'Show', location %></td>
-    <td><%= link_to 'Edit', edit_location_path(location) %></td>
-    <td><%= link_to 'Remove', location, :class => 'destroy' %></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td><%= link_to image_tag("http://labs.google.com/ridefinder/images/mm_20_#{location.signs.downcase}.png", :alt => location.signs), location %></td>
+      <td><%=link_to h(location.street), location %></td>
+      <td><%=link_to h(location.city), location %></td>
+      <td><%=link_to h(location.state), location %></td>
+      <td><%=link_to h(location.zip), location %></td>
+      <td><%=link_to h(location.signs), location %></td>
+      <td><%=link_to h(location.created_at.strftime('%d %B')), location %></td>
+      <td><%= link_to 'Edit', edit_location_path(location) %></td>
+      <td><%= link_to 'Remove', location, :class => 'destroy' %></td>
+    </tr>
+  </tbody>
 <% end %>
 </table>
 
-<br />
+<%- unless params[:all] -%>
+  <%= link_to h("View all #{pluralize Location.count, 'location'}"), all_path %> | 
+<%- end -%>
 
 <%= link_to 'Add a location', '#new_location' %>

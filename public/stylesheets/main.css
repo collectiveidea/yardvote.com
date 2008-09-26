@@ -24,11 +24,32 @@
     color: #666;
     width: 49%;
   }
+
+table {
+  margin: 1em 0;
+}
 th {
+  padding: 0 .5em;
   text-align: left;
 }
+tbody tr:hover {
+  background-color: #ddd;
+}
 td {
-  padding-right: 1em;
+  border: 0px;
+  margin: 0;
+  }
+  td a {
+    padding: 0 .5em;
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+    color: #000;
+  }
+
+img {
+  border: none;
 }
 
 form {
@@ -186,8 +207,11 @@ a {
 #header h1 {
   margin: 0;
   padding: 0.5em 0;
-  color: #2D5385;
   border-bottom: 1px solid #999;
+}
+
+h1, h2, h3 {
+  color: #2D5385;
 }
 
 #header h1 a {

@@ -3,19 +3,27 @@ class LocationsController < ApplicationController
   # GET /locations.xml
   def index
     # ETags!
-    last_updated_location = Location.last(:order => 'updated_at')
-    response.last_modified = last_updated_location.updated_at.utc
-    response.etag = last_updated_location
+    @last_updated_location = Location.last(:order => 'updated_at')
+    response.last_modified = @last_updated_location.updated_at.utc
+    response.etag = @last_updated_location
     head :not_modified and return if request.fresh?(response)
-
-    @locations = Location.all(:include => {:geocoding => :geocode})
-    @location = Location.new(:signs => 'Blue')
   
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render :json => @locations.to_json, :callback => params[:callback] }
-      format.xml  { render :xml => @locations }
-      format.atom
+      format.html do 
+        @locations = Location.with_geocodes.recent.all(params[:all] ? {} : {:limit => 15})
+        @location = Location.new(:signs => 'Blue')
+      end
+      format.json do
+        @locations = Location.with_geocodes        
+        render :json => @locations.to_json, :callback => params[:callback]
+      end
+      format.xml do
+        @locations = Location.with_geocodes
+        render :xml => @locations
+      end
+      format.atom do
+        @locations = Location.with_geocodes.recent        
+      end
     end
   end
 
