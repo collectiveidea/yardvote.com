@@ -12,7 +12,6 @@ class LocationsController < ApplicationController
   
     respond_to do |format|
       format.html # index.html.erb
-      format.js
       format.json { render :json => @locations.to_json, :callback => params[:callback] }
       format.xml  { render :xml => @locations }
       format.atom
