@@ -2,14 +2,14 @@ class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.xml
   def index
-    @locations = Location.all(:include => {:geocoding => :geocode})
-    @location = Location.new(:signs => 'Blue')
-
     # ETags!
     last_updated_location = Location.last(:order => 'updated_at')
     response.last_modified = last_updated_location.updated_at.utc
     response.etag = last_updated_location
     head :not_modified and return if request.fresh?(response)
+
+    @locations = Location.all(:include => {:geocoding => :geocode})
+    @location = Location.new(:signs => 'Blue')
   
     respond_to do |format|
       format.html # index.html.erb
