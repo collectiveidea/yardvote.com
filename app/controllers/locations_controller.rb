@@ -94,7 +94,7 @@ class LocationsController < ApplicationController
     flash[:notice] = 'The location has been removed.'
     
     respond_to do |format|
-      format.html { redirect_to(locations_url) }
+      format.html { redirect_to(root_path) }
       format.xml  { head :ok }
     end
   end
