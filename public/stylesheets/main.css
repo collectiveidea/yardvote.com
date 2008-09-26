@@ -75,15 +75,32 @@ fieldset.sign label span {
   font-size: 16px;
   display: block;
 }
-li.blue, li.blue span {
+
+#map span.blue, #map span.purple, #map span.red {
+  padding-left: 2em;
+  height: 20px;
+  display: block;
+  font-weight: bold;
+}
+
+.blue {
   color: #369;
-}
-li.purple, li.purple span {
+  }
+  #map span.blue {
+    background: url(http://labs.google.com/ridefinder/images/mm_20_blue.png) no-repeat top left;
+  }
+.purple {
   color: #909;
-}
-li.red, li.red span {
+  }
+  #map span.purple {
+    background: url(http://labs.google.com/ridefinder/images/mm_20_purple.png) no-repeat top left;
+  }
+.red {
   color: #C00;
-}
+  }
+  #map span.red {
+    background: url(http://labs.google.com/ridefinder/images/mm_20_red.png) no-repeat top left;
+  }
 
 fieldset.address input {
   font-size: 2em;

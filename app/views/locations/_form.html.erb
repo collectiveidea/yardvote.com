@@ -6,10 +6,10 @@
   
     <ul>
       <% Location::SIGN_OPTIONS.sort_by {|k,_| k }.each do |sign,description| %>
-        <li class="<%=h sign.downcase %>">
+        <li>
           <%= f.radio_button :signs, sign %>
           <label for="location_signs_<%= sign.downcase %>">
-            <span><%= sign %></span>
+            <span class="<%=h sign.downcase %>"><%= sign %></span>
             <%=h description %>
           </label>
         </li>

@@ -6,8 +6,9 @@ class LocationsController < ApplicationController
     @location = Location.new(:signs => 'Blue')
 
     # ETags!
-    response.last_modified = @locations.last.updated_at.utc
-    response.etag = @locations.last    
+    last_updated_location = Location.last(:order => 'updated_at')
+    response.last_modified = last_updated_location.updated_at.utc
+    response.etag = last_updated_location
     head :not_modified and return if request.fresh?(response)
   
     respond_to do |format|
@@ -90,7 +91,8 @@ class LocationsController < ApplicationController
   def destroy
     @location = Location.find(params[:id])
     @location.destroy
-
+    flash[:notice] = 'The location has been removed.'
+    
     respond_to do |format|
       format.html { redirect_to(locations_url) }
       format.xml  { head :ok }

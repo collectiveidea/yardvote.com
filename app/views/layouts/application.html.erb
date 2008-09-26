@@ -4,6 +4,7 @@
     <title>YardVote.com</title>
     <%= stylesheet_link_tag 'collectiveidea', 'main', :cache => true %>
     <%= auto_discovery_link_tag :atom, formatted_locations_path(:atom), :title => "Atom Feed" %>
+    <meta name="authenticity-token" id="authenticity-token" content="<%=h form_authenticity_token %>" />
   </head>
   <body>
     <div id="collectiveidea">
