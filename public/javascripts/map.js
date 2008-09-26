@@ -1,4 +1,5 @@
 var map;
+var overlays = [];
 
 function showMap() {
   var mapDiv = $('map')
@@ -30,26 +31,27 @@ function showMap() {
 
 function mapLocations(locations) {
   Event.observe(window, "dom:loaded", function() {
-    locations.each(mapLocation, false);
+    locations.each(mapLocation);
   });
 }
 
-function mapLocation(l, options) {
+function mapLocation(l) {
   var point = new GLatLng(l.location.geocoding.geocode.latitude, l.location.geocoding.geocode.longitude);
-  var mark = new GMarker(point, {icon:marker(l.location.signs)});
-  mark.html = '<span class="'+l.location.signs.toLowerCase()+'">'+l.location.street+'</span>'+l.location.city+', '+l.location.state+' '+l.location.zip+'<br>Reported at '+l.location.created_at+'<br><a href="/locations/"'+l.location.id+'/edit">Edit</a> | <a href="/locations/"'+l.location.id+'" class="destroy">Remove</a>';
-  map.addOverlay(mark);
-  if (options.open) {
-    mark.openInfoWindowHtml(mark.html)
-  }
+  overlays[l.location.id] = new GMarker(point, {icon:marker(l.location.signs)});
+  overlays[l.location.id].html = '<span class="'+l.location.signs.toLowerCase()+'">'+l.location.street+'</span>'+l.location.city+', '+l.location.state+' '+l.location.zip+'<br>Reported at '+l.location.created_at+'<br><a href="/locations/'+l.location.id+'/edit">Edit</a> | <a href="/locations/'+l.location.id+'" class="destroy">Remove</a>';
+  map.addOverlay(overlays[l.location.id]);
   return point;
 }
 
 function mapLocationAndFocus(location) {
-  map.setCenter(mapLocation(location, {open:true}), 14);
+  map.setCenter(mapLocation(location), 14);
   $('map').scrollTo();
+  showOverlay(location.location);
 }
 
+function showOverlay(location) {
+  overlays[location.id].openInfoWindowHtml(overlays[location.id].html);
+}
 
 var markers = {};
 

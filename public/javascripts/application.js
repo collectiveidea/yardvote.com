@@ -53,5 +53,11 @@ Event.addBehavior({
     if (confirm('Do you really want to delete this?')) {
       this.submit({method: 'delete'});
     }
+  },
+  
+  'a.show:click': function(event) {
+    event.stop();
+    showOverlay({id: this.href.match(/\d+$/)[0]});
+    $('map').scrollTo();
   }
 });

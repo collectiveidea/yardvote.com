@@ -40,12 +40,12 @@
   <tbody>
     <tr>
       <td><%= link_to image_tag("http://labs.google.com/ridefinder/images/mm_20_#{location.signs.downcase}.png", :alt => location.signs), location %></td>
-      <td><%=link_to h(location.street), location %></td>
-      <td><%=link_to h(location.city), location %></td>
-      <td><%=link_to h(location.state), location %></td>
-      <td><%=link_to h(location.zip), location %></td>
-      <td><%=link_to h(location.signs), location %></td>
-      <td><%=link_to h(location.created_at.strftime('%d %B')), location %></td>
+      <td><%=link_to h(location.street), location, :class => 'show' %></td>
+      <td><%=link_to h(location.city), location, :class => 'show' %></td>
+      <td><%=link_to h(location.state), location, :class => 'show' %></td>
+      <td><%=link_to h(location.zip), location, :class => 'show' %></td>
+      <td><%=link_to h(location.signs), location, :class => 'show' %></td>
+      <td><%=link_to h(location.created_at.strftime('%d %B')), location, :class => 'show' %></td>
       <td><%= link_to 'Edit', edit_location_path(location) %></td>
       <td><%= link_to 'Remove', location, :class => 'destroy' %></td>
     </tr>
