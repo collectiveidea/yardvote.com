@@ -36,7 +36,7 @@ tbody tr:hover {
   background-color: #ddd;
 }
 td {
-  border: 0px;
+  border: none;
   margin: 0;
   }
   td a {
