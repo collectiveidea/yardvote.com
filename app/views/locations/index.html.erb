@@ -12,7 +12,7 @@
     <li class="<%=h count.signs.downcase %>"><%=h pluralize count.count, "#{count.signs} Yards" %></li>
   <%- end -%>
   <li class="city"><%=h pluralize Location.count(:select => 'DISTINCT(city)'), 'City' %></li>
-  <li class="state"><%=h pluralize Location.count(:select => 'DISTINCT(city)'), 'State' %></li>
+  <li class="state"><%=h pluralize Location.count(:select => 'DISTINCT(state)'), 'State' %></li>
 </ul>
 
 <div id="map"></div>
