@@ -58,7 +58,7 @@ var markers = {};
 function marker(color) {
   if (!markers[color]) {
     markers[color] = new GIcon(G_DEFAULT_ICON);
-    markers[color].image = '/images/markers/' + color.toLowerCase() + '.png';
+    markers[color].image = 'http://labs.google.com/ridefinder/images/mm_20_' + color.toLowerCase() + '.png';
     markers[color].shadow = 'http://labs.google.com/ridefinder/images/mm_20_shadow.png';
     markers[color].iconSize = new GSize(12, 20);
     markers[color].shadowSize = new GSize(22, 20);
