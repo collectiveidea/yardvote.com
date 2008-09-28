@@ -57,7 +57,7 @@ Event.addBehavior({
   
   'a.show:click': function(event) {
     event.stop();
-    showOverlay({id: this.href.match(/\d+$/)[0]});
+    Map.showOverlay({id: this.href.match(/\d+$/)[0]});
     $('map').scrollTo();
   }
 });

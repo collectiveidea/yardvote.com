@@ -131,8 +131,8 @@ fieldset legend {
   font-size: 2em;
   font-weight: bold;
   color: #000;
-  margin: 0 0 0.5em 0;
-  padding: 0;
+  margin: 0;
+  padding: 0 0 .5em 0;
 }
 fieldset ol {
   list-style: none;

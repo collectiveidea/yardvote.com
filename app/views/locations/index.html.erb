@@ -1,11 +1,12 @@
 <%- content_for :foot do -%>
   <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<%=h GOOGLE_MAPS_API_KEY %>" type="text/javascript"></script>
-  <%= javascript_include_tag formatted_locations_path(:json, :callback => 'mapLocations') %>
+  <script src="http://gmaps-utility-library-dev.googlecode.com/svn/trunk/markermanager/src/markermanager_packed.js" type="text/javascript"></script>
+  <%= javascript_include_tag formatted_locations_path(:json, :callback => 'Map.mapLocations') %>
 <%- end -%>
 
 <p>What can mapping Obama &amp; McCain yard signs tell us about our neighborhoods and political climate?  We don't know either, so we're trying to find out.</p>
 
-<p>We're starting in Holland, MI but want reports from everywhere. Join the fun by <%= link_to 'reporting a sign', '#new_location' %>.</p>
+<p>We're starting in Holland, <abbr title="Michigan">MI</abbr> but want reports from everywhere. Join the fun by <%= link_to 'reporting a sign', '#new_location' %>.</p>
 
 <ul id="counts">
   <%- Location.sign_counts.each do |count| -%>
@@ -35,17 +36,17 @@
       <th>Reported on</th>
       <th colspan="2"></th>
     </tr>
-  </tbody>
-<% for location in @locations %>
+  </thead>
+<% @locations.each do |location| %>
   <tbody>
     <tr>
       <td><%= link_to image_tag("http://labs.google.com/ridefinder/images/mm_20_#{location.signs.downcase}.png", :alt => location.signs), location %></td>
-      <td><%=link_to h(location.street), location, :class => 'show' %></td>
-      <td><%=link_to h(location.city), location, :class => 'show' %></td>
-      <td><%=link_to h(location.state), location, :class => 'show' %></td>
-      <td><%=link_to h(location.zip), location, :class => 'show' %></td>
-      <td><%=link_to h(location.signs), location, :class => 'show' %></td>
-      <td><%=link_to h(location.created_at.strftime('%d %B')), location, :class => 'show' %></td>
+      <td><%= link_to h(location.street), location, :class => 'show' %></td>
+      <td><%= link_to h(location.city), location, :class => 'show' %></td>
+      <td><%= link_to h(location.state), location, :class => 'show' %></td>
+      <td><%= link_to h(location.zip), location, :class => 'show' %></td>
+      <td><%= link_to h(location.signs), location, :class => 'show' %></td>
+      <td><%= link_to h(location.created_at.strftime('%d %B')), location, :class => 'show' %></td>
       <td><%= link_to 'Edit', edit_location_path(location) %></td>
       <td><%= link_to 'Remove', location, :class => 'destroy' %></td>
     </tr>
