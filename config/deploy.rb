@@ -70,4 +70,5 @@ desc "we need a database.  this helps with that."
 task :after_update_code do
   run "mv #{release_path}/config/database.sample.yml #{release_path}/config/database.yml"
   run "ln -fs #{shared_path}/production.sqlite3 #{release_path}/db/production.sqlite3"
+  run "ln -fs #{shared_path}/email.rb #{release_path}/config/initializers/email.rb"
 end
