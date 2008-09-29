@@ -80,11 +80,22 @@ var Map = {
   mapLocationAndFocus: function(location) {
     Map.map.setCenter(Map.mapLocation(location), 14);
     $('map').scrollTo();
-    Map.showOverlay(location.location);
+    Map.showOverlay.delay(0.5, location.location);
   },
 
   showOverlay: function(location) {
     Map.markers[location.id].openInfoWindowHtml(Map.markers[location.id].html);
+  },
+  
+  findLocation: function(location_path) {
+    var id = location_path.match(/\d+$/)[0];
+    if (Map.markers[id]) {
+      Map.showOverlay({id: id});
+      $('map').scrollTo();      
+    } else {
+      new Ajax.Request(location_path+'.json', {method: 'get', 
+        parameters: {callback: 'Map.mapLocationAndFocus'}} );
+    }
   },
 
   icons: {},

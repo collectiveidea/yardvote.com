@@ -39,6 +39,7 @@ class LocationsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
+      format.json { render :json => @location.to_json, :callback => params[:callback] }
       format.xml  { render :xml => @location }
     end
   end

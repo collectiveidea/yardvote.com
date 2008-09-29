@@ -57,8 +57,7 @@ Event.addBehavior({
   
   'a.show:click': function(event) {
     event.stop();
-    Map.showOverlay({id: this.href.match(/\d+$/)[0]});
-    $('map').scrollTo();
+    Map.findLocation(this.href);
   }
 });
 Event.addBehavior.reassignAfterAjax = true;
