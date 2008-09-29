@@ -14,7 +14,7 @@ class LocationsController < ApplicationController
         @location = Location.new(:signs => 'Blue')
       end
       format.json do
-        @locations = Location.with_geocodes        
+        @locations = Location.with_geocodes.in_box(params[:northeast], params[:southwest])
         render :json => @locations.to_json, :callback => params[:callback]
       end
       format.xml do

@@ -24,25 +24,35 @@ var Map = {
           //whatever you want to happen if you don't click on an overlay.
         }
       });
+      
+      GEvent.addListener(Map.map, "moveend", Map.refreshMarkers);
+      GEvent.addListener(Map.map, "zoomend", Map.refreshMarkers);
     
       Map.mgr = new MarkerManager(Map.map);    
-    
+      Map.refreshMarkers();
       Event.observe(window, "unload", GUnload);
     }
   },
   
+  refreshMarkers: function() {
+    var bounds = Map.map.getBounds();
+    new Ajax.Request('/locations.json?callback=Map.mapLocations&northeast=' +
+      bounds.getNorthEast().toUrlValue()+
+      '&southwest='+bounds.getSouthWest().toUrlValue(), {method: 'get'} );
+  },
+  
   mapLocations: function(locations) {
-    Event.observe(window, "dom:loaded", function() {
-      locations.each(Map.mapLocation);
-    });
+    locations.each(Map.mapLocation);
   },
 
   mapLocation: function(l) {
-    var point = new GLatLng(l.location.geocoding.geocode.latitude, l.location.geocoding.geocode.longitude);
-    Map.markers[l.location.id] = new GMarker(point, {icon:Map.icon(l.location.signs)});
-    Map.markers[l.location.id].html = '<span class="'+l.location.signs.toLowerCase()+'">'+l.location.street+'</span>'+l.location.city+', '+l.location.state+' '+l.location.zip+'<br>Reported at '+l.location.created_at+'<br><a href="/locations/'+l.location.id+'/edit">Edit</a> | <a href="/locations/'+l.location.id+'" class="destroy">Remove</a>';
-    Map.mgr.addMarker(Map.markers[l.location.id], 8);
-    return point;
+    if (!Map.markers[l.location.id]) {
+      var point = new GLatLng(l.location.geocoding.geocode.latitude, l.location.geocoding.geocode.longitude);
+      Map.markers[l.location.id] = new GMarker(point, {icon:Map.icon(l.location.signs)});
+      Map.markers[l.location.id].html = '<span class="'+l.location.signs.toLowerCase()+'">'+l.location.street+'</span>'+l.location.city+', '+l.location.state+' '+l.location.zip+'<br>Reported at '+l.location.created_at+'<br><a href="/locations/'+l.location.id+'/edit">Edit</a> | <a href="/locations/'+l.location.id+'" class="destroy">Remove</a>';
+      Map.mgr.addMarker(Map.markers[l.location.id], 0);
+      return point;
+    }
   },
 
   mapLocationAndFocus: function(location) {

@@ -61,3 +61,4 @@ Event.addBehavior({
     $('map').scrollTo();
   }
 });
+Event.addBehavior.reassignAfterAjax = true;

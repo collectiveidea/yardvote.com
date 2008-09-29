@@ -16,6 +16,14 @@ class Location < ActiveRecord::Base
   named_scope :recent, :order => 'created_at DESC, updated_at DESC'
   named_scope :with_geocodes, :include => {:geocoding => :geocode}
   
+  named_scope :in_box, lambda{|northeast, southwest|
+    southwest_latitude, southwest_longitude = southwest.split(',')
+    northeast_latitude, northeast_longitude = northeast.split(',')
+    {:conditions => {:geocodes => {
+      :longitude => (southwest_longitude..northeast_longitude), 
+      :latitude => (southwest_latitude..northeast_latitude)}}}
+  }
+  
   named_scope :sign_counts, :select => 'locations.signs, COUNT(locations.signs) AS count', :group => 'locations.signs', :order => 'count DESC'
   
   def to_json(options={})
