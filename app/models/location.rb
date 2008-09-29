@@ -30,4 +30,10 @@ class Location < ActiveRecord::Base
     super options.merge(:except => :deleted_at, :include => {:geocoding => {:only => [], 
       :include => {:geocode => {:only => [:latitude, :longitude]}}}})
   end
+  
+  # inefficient method for cities
+  def city_info
+    info = Location.all(:select => 'signs, COUNT(id) AS count', :conditions => {:city => self.city, :state => self.state}).group_by(&:signs).max{|a,b| a[1].size <=> b[1].size}[1][0]
+    {:signs => info.signs, :count => info.count}
+  end
 end

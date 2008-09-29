@@ -1,5 +1,7 @@
 var Map = {
   markers: [],
+  cities: [],
+  zoomSwitch: 10,
   
   show: function() {
     var mapDiv = $('map')
@@ -36,10 +38,26 @@ var Map = {
   
   refreshMarkers: function() {
     var bounds = Map.map.getBounds();
-    new Ajax.Request('/locations.json', {method: 'get', 
-      parameters: {callback: 'Map.mapLocations', 
-        northeast: bounds.getNorthEast().toUrlValue(),
-        southwest: bounds.getSouthWest().toUrlValue()}} );
+    
+    if (Map.map.getZoom() > Map.zoomSwitch) {
+      new Ajax.Request('/locations.json', {method: 'get', 
+        parameters: {callback: 'Map.mapLocations', 
+          northeast: bounds.getNorthEast().toUrlValue(),
+          southwest: bounds.getSouthWest().toUrlValue()}} );
+    } else {
+      new Ajax.Request('/cities.json?callback=Map.mapCities', {method: 'get'});
+    }
+  },
+  
+  mapCities: function(cities) {
+    cities.each(function(city){
+      if (!Map.cities[city.location.id]) {
+        var point = new GLatLng(city.location.geocoding.geocode.latitude, city.location.geocoding.geocode.longitude);
+        Map.cities[city.location.id] = new GMarker(point, {icon:Map.icon(city.location.city_info.signs)});
+        Map.cities[city.location.id].html = '<span class="'+city.location.signs.toLowerCase()+'">'+city.location.city+', '+city.location.state+'</span>'+city.location.city_info.count+' Signs<br>Leans '+city.location.city_info.signs;
+        Map.mgr.addMarker(Map.cities[city.location.id], 0, Map.zoomSwitch);
+      }
+    });
   },
   
   mapLocations: function(locations) {
@@ -51,7 +69,7 @@ var Map = {
       var point = new GLatLng(l.location.geocoding.geocode.latitude, l.location.geocoding.geocode.longitude);
       Map.markers[l.location.id] = new GMarker(point, {icon:Map.icon(l.location.signs)});
       Map.markers[l.location.id].html = '<span class="'+l.location.signs.toLowerCase()+'">'+l.location.street+'</span>'+l.location.city+', '+l.location.state+' '+l.location.zip+'<br>Reported at '+l.location.created_at+'<br><a href="/locations/'+l.location.id+'/edit">Edit</a> | <a href="/locations/'+l.location.id+'" class="destroy">Remove</a>';
-      Map.mgr.addMarker(Map.markers[l.location.id], 0);
+      Map.mgr.addMarker(Map.markers[l.location.id], Map.zoomSwitch+1);
       return point;
     }
   },
