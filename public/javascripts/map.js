@@ -45,7 +45,10 @@ var Map = {
           northeast: bounds.getNorthEast().toUrlValue(),
           southwest: bounds.getSouthWest().toUrlValue()}} );
     } else {
-      new Ajax.Request('/cities.json?callback=Map.mapCities', {method: 'get'});
+      new Ajax.Request('/cities.json', {method: 'get', 
+        parameters: {callback: 'Map.mapCities', 
+          northeast: bounds.getNorthEast().toUrlValue(),
+          southwest: bounds.getSouthWest().toUrlValue()}} );
     }
   },
   
