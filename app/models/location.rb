@@ -33,7 +33,8 @@ class Location < ActiveRecord::Base
   
   # inefficient method for cities
   def city_info
-    info = Location.all(:select => 'signs, COUNT(id) AS count', :conditions => {:city => self.city, :state => self.state}).group_by(&:signs).max{|a,b| a[1].size <=> b[1].size}[1][0]
-    {:signs => info.signs, :count => info.count}
+    locations = Location.all(:select => 'signs', :conditions => {:city => self.city, :state => self.state})
+    info = locations.group_by(&:signs).max{|a,b| a[1].size <=> b[1].size}[1][0]
+    {:signs => info.signs, :count => locations.size}
   end
 end
