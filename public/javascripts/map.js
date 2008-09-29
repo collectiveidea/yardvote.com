@@ -36,9 +36,10 @@ var Map = {
   
   refreshMarkers: function() {
     var bounds = Map.map.getBounds();
-    new Ajax.Request('/locations.json?callback=Map.mapLocations&northeast=' +
-      bounds.getNorthEast().toUrlValue()+
-      '&southwest='+bounds.getSouthWest().toUrlValue(), {method: 'get'} );
+    new Ajax.Request('/locations.json', {method: 'get', 
+      parameters: {callback: 'Map.mapLocations', 
+        northeast: bounds.getNorthEast().toUrlValue(),
+        southwest: bounds.getSouthWest().toUrlValue()}} );
   },
   
   mapLocations: function(locations) {
