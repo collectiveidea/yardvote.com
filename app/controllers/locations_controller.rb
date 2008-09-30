@@ -64,9 +64,16 @@ class LocationsController < ApplicationController
   # POST /locations.xml
   def create
     @location = Location.new(params[:location])
+    existing = Location.existing_address(@location)
 
     respond_to do |format|
-      if @location.save
+      if !existing.nil?
+        @location = existing
+        flash[:notice] = 'Location already exists.'
+        format.html { redirect_to @location, :status => 303 }
+        format.js { redirect_to formatted_location_path(@location, :format => :json, :callback => params[:callback] || 'Map.mapLocationAndFocus'), :status => 303 }
+        format.xml  { render :xml => @location, :status => 303, :location => @location }        
+      elsif @location.save
         flash[:notice] = 'Location was successfully created.'
         format.html { redirect_to(@location) }
         format.js { render :json => @location.to_json, :callback => params[:callback] || 'Map.mapLocationAndFocus' }

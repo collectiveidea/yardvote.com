@@ -10,7 +10,7 @@ class Location < ActiveRecord::Base
 	
 	acts_as_paranoid
 	acts_as_audited
-	  
+
   validates_inclusion_of :signs, :in => SIGN_OPTIONS, :message => "must be #{SIGN_OPTIONS.keys.to_sentence(:connector => 'or')}"
   
   named_scope :recent, :order => 'created_at DESC, updated_at DESC'
@@ -36,5 +36,12 @@ class Location < ActiveRecord::Base
     locations = Location.all(:select => 'signs', :conditions => {:city => self.city, :state => self.state})
     info = locations.group_by(&:signs).max{|a,b| a[1].size <=> b[1].size}[1][0]
     {:signs => info.signs, :count => locations.size}
+  end
+
+private
+  def self.existing_address(location)
+    location.send :attach_geocode
+    # find others with the same address
+    Location.first(:conditions => {:street => location.street, :city => location.city, :state => location.state, :zip => location.zip})
   end
 end
