@@ -1,0 +1,6 @@
+<dt><%=h audit.auditable_type %> #<%=h audit.auditable_id %> <%=h audit.action %>d on <%=h audit.created_at.to_s(:long) %></dt>
+<%- audit.changes.each do |column, change| -%>
+  <%- unless change.blank? -%>
+    <dd><%=h column %>: <%=h change%></dd>
+  <%- end -%>
+<%- end -%>

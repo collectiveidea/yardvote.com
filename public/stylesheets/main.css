@@ -251,6 +251,10 @@ dl .description {
   font-family: fixed;
 }
 
+dt {
+  font-weight: bold;
+}
+
 .fieldWithErrors {
   padding: 2px;
   background-color: red;
