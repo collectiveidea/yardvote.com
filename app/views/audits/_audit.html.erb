@@ -1,4 +1,4 @@
-<dt><%=h audit.auditable_type %> #<%=h audit.auditable_id %> <%=h audit.action %>d on <%=h audit.created_at.to_s(:long) %></dt>
+<dt><%=h audit.auditable_type %> #<%=h audit.auditable_id %> <%=h past_tense(audit.action) %> on <%=h audit.created_at.to_s(:long) %></dt>
 <%- if audit.changes -%>
   <%- audit.changes.each do |column, change| -%>
     <%- unless change.blank? -%>
