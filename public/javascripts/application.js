@@ -55,6 +55,13 @@ Event.addBehavior({
     }
   },
   
+  'a.restore:click': function(event) {
+    event.stop();
+    if (confirm('Do you really want to restore this?')) {
+      this.submit({method: 'put'});
+    }
+  },
+  
   'a.show:click': function(event) {
     event.stop();
     Map.findLocation(this.href);

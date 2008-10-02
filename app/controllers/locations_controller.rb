@@ -3,7 +3,7 @@ class LocationsController < ApplicationController
   # GET /locations.xml
   def index
     # ETags!
-    @last_updated_location = Location.last(:order => 'updated_at')
+    @last_updated_location = Location.find_with_deleted(:first, :order => 'updated_at DESC')
     response.last_modified = @last_updated_location.updated_at.utc
     response.etag = @last_updated_location
     head :not_modified and return if request.fresh?(response)
@@ -27,10 +27,20 @@ class LocationsController < ApplicationController
     end
   end
 
+  def removed
+    # ETags!
+    @last_updated_location = Location.find_with_deleted(:first, :order => 'updated_at DESC')
+    response.last_modified = @last_updated_location.updated_at.utc
+    response.etag = @last_updated_location
+    head :not_modified and return if request.fresh?(response)
+  
+    @locations = Location.with_geocodes.recent.find_only_deleted(:all)
+  end
+
   # GET /locations/1
   # GET /locations/1.xml
   def show
-    @location = Location.find(params[:id])
+    @location = Location.find_with_deleted(params[:id])
     
     # ETags!
     response.last_modified = @location.updated_at.utc
@@ -57,7 +67,7 @@ class LocationsController < ApplicationController
 
   # GET /locations/1/edit
   def edit
-    @location = Location.find(params[:id])
+    @location = Location.find_with_deleted(params[:id])
   end
 
   # POST /locations
@@ -88,7 +98,7 @@ class LocationsController < ApplicationController
   # PUT /locations/1
   # PUT /locations/1.xml
   def update
-    @location = Location.find(params[:id])
+    @location = Location.find_with_deleted(params[:id])
 
     respond_to do |format|
       if @location.update_attributes(params[:location])
@@ -108,6 +118,17 @@ class LocationsController < ApplicationController
     @location = Location.find(params[:id])
     @location.destroy
     flash[:notice] = 'The location has been removed.'
+    
+    respond_to do |format|
+      format.html { redirect_to(root_path) }
+      format.xml  { head :ok }
+    end
+  end
+  
+  def recover
+    @location = Location.find_only_deleted(params[:id])
+    @location.recover!
+    flash[:notice] = 'The location has been restored.'
     
     respond_to do |format|
       format.html { redirect_to(root_path) }
