@@ -114,4 +114,9 @@ var Map = {
   }
 }
 
-Event.observe(window, "dom:loaded", Map.show);
+// Dunno why IE doesn't like dom:loaded.
+if (Prototype.Browser.IE) {
+  Event.observe(window, "load", Map.show);
+} else {
+  Event.observe(window, "dom:loaded", Map.show);
+}
