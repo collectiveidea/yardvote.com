@@ -41,7 +41,7 @@ var Map = {
     
     if (Map.map.getZoom() > Map.zoomSwitch) {
       new Ajax.Request('/locations.json', {method: 'get', 
-        parameters: {callback: 'Map.mapLocations', 
+        parameters: {callback: 'Map.callback', 
           northeast: bounds.getNorthEast().toUrlValue(),
           southwest: bounds.getSouthWest().toUrlValue()}} );
     } else {
@@ -63,30 +63,27 @@ var Map = {
     });
   },
   
-  mapLocations: function(locations) {
-    if (!Map.parseErrors(location)) {
-      locations.each(Map.mapLocation);
+  callback: function(data) {
+    if(!Map.errors(data)) {
+      if(data.locations) data.locations.each(Map.mapLocation);
+      if(data.focus)     Map.mapLocationAndFocus(data.focus);
+    }
+  },
+  
+  mapLocation: function(data) {
+    if (!Map.markers[data.location.id]) {
+      var point = new GLatLng(data.location.geocoding.geocode.latitude, data.location.geocoding.geocode.longitude);
+      Map.markers[data.location.id] = new GMarker(point, {icon:Map.icon(data.location.signs)});
+      Map.markers[data.location.id].html = '<span class="'+data.location.signs.toLowerCase()+'">'+data.location.street+'</span>'+data.location.city+', '+data.location.state+' '+data.location.zip+'<br>Reported at '+data.location.created_at+'<br><a href="/locations/'+data.location.id+'/edit">Edit</a> | <a href="/locations/'+data.location.id+'" class="destroy">Remove</a>';
+      Map.mgr.addMarker(Map.markers[data.location.id], Map.zoomSwitch+1);
+      return point;
     }
   },
 
-  mapLocation: function(l) {
-    if (!Map.parseErrors(location)) {
-      if (!Map.markers[l.location.id]) {
-        var point = new GLatLng(l.location.geocoding.geocode.latitude, l.location.geocoding.geocode.longitude);
-        Map.markers[l.location.id] = new GMarker(point, {icon:Map.icon(l.location.signs)});
-        Map.markers[l.location.id].html = '<span class="'+l.location.signs.toLowerCase()+'">'+l.location.street+'</span>'+l.location.city+', '+l.location.state+' '+l.location.zip+'<br>Reported at '+l.location.created_at+'<br><a href="/locations/'+l.location.id+'/edit">Edit</a> | <a href="/locations/'+l.location.id+'" class="destroy">Remove</a>';
-        Map.mgr.addMarker(Map.markers[l.location.id], Map.zoomSwitch+1);
-        return point;
-      }
-    }
-  },
-
-  mapLocationAndFocus: function(location) {
-    if (!Map.parseErrors(location)) {
-      Map.map.setCenter(Map.mapLocation(location), 14);
-      $('map').scrollTo();
-      Map.showOverlay.delay(0.5, location.location);
-    }
+  mapLocationAndFocus: function(data) {
+    Map.map.setCenter(Map.mapLocation(data), 14);
+    $('map').scrollTo();
+    Map.showOverlay.delay(0.5, data.location);
   },
 
   showOverlay: function(location) {
@@ -100,15 +97,15 @@ var Map = {
       $('map').scrollTo();      
     } else {
       new Ajax.Request(location_path+'.json', {method: 'get', 
-        parameters: {callback: 'Map.mapLocationAndFocus'}} );
+        parameters: {callback: 'Map.callback'}} );
     }
   },
   
-  parseErrors: function(response) {
+  errors: function(data) {
     $$('form fieldset.address ol li.error').invoke('remove');
-    if (response.errors) {
+    if (data.errors) {
       var list = $$('form fieldset.address ol').first();
-      response.errors.each(function(error) {
+      data.errors.each(function(error) {
         var message = '';
         if (error[0] != 'base') {
           message = message + error[0] + ' ';
@@ -116,6 +113,7 @@ var Map = {
         list.insert({top: '<li class="error">'+message.capitalize()+error[1]+'</li>'});
       });
     }
+    return data.errors && !data.errors.empty();
   },
 
   icons: {},
