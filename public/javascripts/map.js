@@ -105,8 +105,8 @@ var Map = {
   },
   
   parseErrors: function(response) {
+    $$('form fieldset.address ol li.error').invoke('remove');
     if (response.errors) {
-      $$('form fieldset.address ol li.error').invoke('remove');
       var list = $$('form fieldset.address ol').first();
       response.errors.each(function(error) {
         var message = '';
@@ -115,7 +115,6 @@ var Map = {
         }
         list.insert({top: '<li class="error">'+message.capitalize()+error[1]+'</li>'});
       });
-      list.insert({top: '<li class="error">Error</li>'});
     }
   },
 
