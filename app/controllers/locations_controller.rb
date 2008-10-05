@@ -51,7 +51,7 @@ class LocationsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => {:focus => @location}, :callback => json_callback }
+      format.json { render :json => @location, :callback => json_callback }
       format.xml  { render :xml => @location }
     end
   end
@@ -88,7 +88,7 @@ class LocationsController < ApplicationController
       elsif @location.save
         flash[:notice] = 'Location was successfully created.'
         format.html { redirect_to(@location) }
-        format.js { render :json => {:focus => @location}, :callback => json_callback }
+        format.js { render :json => @location, :callback => json_callback }
         format.xml  { render :xml => @location, :status => :created, :location => @location }
       else
         format.html { render :action => "new" }

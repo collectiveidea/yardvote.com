@@ -66,7 +66,7 @@ var Map = {
   callback: function(data) {
     if(!Map.errors(data)) {
       if(data.locations) data.locations.each(Map.mapLocation);
-      if(data.focus)     Map.mapLocationAndFocus(data.focus);
+      if(data.location)     Map.mapLocationAndFocus(data);
     }
   },
   
