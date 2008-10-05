@@ -12,6 +12,7 @@ class Location < ActiveRecord::Base
 	acts_as_audited
 
   validates_inclusion_of :signs, :in => SIGN_OPTIONS, :message => "must be #{SIGN_OPTIONS.keys.to_sentence(:connector => 'or')}"
+  validate :check_geocode_precision
   
   named_scope :recent, :order => 'created_at DESC, updated_at DESC'
   named_scope :with_geocodes, :include => {:geocoding => :geocode}
@@ -43,5 +44,10 @@ private
     location.send :attach_geocode
     # find others with the same address
     Location.first(:conditions => {:street => location.street, :city => location.city, :state => location.state, :zip => location.zip})
+  end
+  
+  def check_geocode_precision
+    attach_geocode
+    errors.add_to_base "We can't find a precise enough address match." if geocode.blank? || geocode.precision != 'address'
   end
 end

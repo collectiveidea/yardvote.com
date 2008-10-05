@@ -255,6 +255,12 @@ dt {
   font-weight: bold;
 }
 
+form li.error {
+  color: red;
+  font-weight: bold;
+  margin-bottom: .2em;
+}
+
 .fieldWithErrors {
   padding: 2px;
   background-color: red;

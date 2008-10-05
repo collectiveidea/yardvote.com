@@ -64,23 +64,29 @@ var Map = {
   },
   
   mapLocations: function(locations) {
-    locations.each(Map.mapLocation);
+    if (!Map.parseErrors(location)) {
+      locations.each(Map.mapLocation);
+    }
   },
 
   mapLocation: function(l) {
-    if (!Map.markers[l.location.id]) {
-      var point = new GLatLng(l.location.geocoding.geocode.latitude, l.location.geocoding.geocode.longitude);
-      Map.markers[l.location.id] = new GMarker(point, {icon:Map.icon(l.location.signs)});
-      Map.markers[l.location.id].html = '<span class="'+l.location.signs.toLowerCase()+'">'+l.location.street+'</span>'+l.location.city+', '+l.location.state+' '+l.location.zip+'<br>Reported at '+l.location.created_at+'<br><a href="/locations/'+l.location.id+'/edit">Edit</a> | <a href="/locations/'+l.location.id+'" class="destroy">Remove</a>';
-      Map.mgr.addMarker(Map.markers[l.location.id], Map.zoomSwitch+1);
-      return point;
+    if (!Map.parseErrors(location)) {
+      if (!Map.markers[l.location.id]) {
+        var point = new GLatLng(l.location.geocoding.geocode.latitude, l.location.geocoding.geocode.longitude);
+        Map.markers[l.location.id] = new GMarker(point, {icon:Map.icon(l.location.signs)});
+        Map.markers[l.location.id].html = '<span class="'+l.location.signs.toLowerCase()+'">'+l.location.street+'</span>'+l.location.city+', '+l.location.state+' '+l.location.zip+'<br>Reported at '+l.location.created_at+'<br><a href="/locations/'+l.location.id+'/edit">Edit</a> | <a href="/locations/'+l.location.id+'" class="destroy">Remove</a>';
+        Map.mgr.addMarker(Map.markers[l.location.id], Map.zoomSwitch+1);
+        return point;
+      }
     }
   },
 
   mapLocationAndFocus: function(location) {
-    Map.map.setCenter(Map.mapLocation(location), 14);
-    $('map').scrollTo();
-    Map.showOverlay.delay(0.5, location.location);
+    if (!Map.parseErrors(location)) {
+      Map.map.setCenter(Map.mapLocation(location), 14);
+      $('map').scrollTo();
+      Map.showOverlay.delay(0.5, location.location);
+    }
   },
 
   showOverlay: function(location) {
@@ -95,6 +101,21 @@ var Map = {
     } else {
       new Ajax.Request(location_path+'.json', {method: 'get', 
         parameters: {callback: 'Map.mapLocationAndFocus'}} );
+    }
+  },
+  
+  parseErrors: function(response) {
+    if (response.errors) {
+      $$('form fieldset.address ol li.error').invoke('remove');
+      var list = $$('form fieldset.address ol').first();
+      response.errors.each(function(error) {
+        var message = '';
+        if (error[0] != 'base') {
+          message = message + error[0] + ' ';
+        }
+        list.insert({top: '<li class="error">'+message.capitalize()+error[1]+'</li>'});
+      });
+      list.insert({top: '<li class="error">Error</li>'});
     }
   },
 

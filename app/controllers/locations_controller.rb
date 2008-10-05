@@ -86,10 +86,11 @@ class LocationsController < ApplicationController
       elsif @location.save
         flash[:notice] = 'Location was successfully created.'
         format.html { redirect_to(@location) }
-        format.js { render :json => @location.to_json, :callback => params[:callback] || 'Map.mapLocationAndFocus' }
+        format.js { render :json => @location, :callback => params[:callback] || 'Map.mapLocationAndFocus' }
         format.xml  { render :xml => @location, :status => :created, :location => @location }
       else
         format.html { render :action => "new" }
+        format.js  { render :json => {:errors => @location.errors}, :status => :unprocessable_entity, :callback => params[:callback] || 'Map.mapLocationAndFocus'}
         format.xml  { render :xml => @location.errors, :status => :unprocessable_entity }
       end
     end
