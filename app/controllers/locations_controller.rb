@@ -4,9 +4,11 @@ class LocationsController < ApplicationController
   def index
     # ETags!
     @last_updated_location = Location.find_with_deleted(:first, :order => 'updated_at DESC')
-    response.last_modified = @last_updated_location.updated_at.utc
-    response.etag = @last_updated_location
-    head :not_modified and return if request.fresh?(response)
+    if @last_updated_location
+      response.last_modified = @last_updated_location.updated_at.utc
+      response.etag = @last_updated_location
+      head :not_modified and return if request.fresh?(response)
+    end
   
     respond_to do |format|
       format.html do 
