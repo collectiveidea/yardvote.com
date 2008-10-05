@@ -15,7 +15,7 @@ class LocationsController < ApplicationController
       end
       format.json do
         @locations = Location.with_geocodes.in_box(params[:northeast], params[:southwest])
-        render :json => @locations.to_json, :callback => params[:callback]
+        render :json => {:locations => @locations}, :callback => json_callback
       end
       format.xml do
         @locations = Location.with_geocodes
@@ -49,7 +49,7 @@ class LocationsController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @location.to_json, :callback => params[:callback] }
+      format.json { render :json => {:focus => @location}, :callback => json_callback }
       format.xml  { render :xml => @location }
     end
   end
@@ -81,16 +81,16 @@ class LocationsController < ApplicationController
         @location = existing
         flash[:notice] = 'Location already exists.'
         format.html { redirect_to @location, :status => 303 }
-        format.js { redirect_to formatted_location_path(@location, :format => :json, :callback => params[:callback] || 'Map.mapLocationAndFocus'), :status => 303 }
+        format.js { redirect_to formatted_location_path(@location, :format => :json, :callback => json_callback), :status => 303 }
         format.xml  { render :xml => @location, :status => 303, :location => @location }        
       elsif @location.save
         flash[:notice] = 'Location was successfully created.'
         format.html { redirect_to(@location) }
-        format.js { render :json => @location, :callback => params[:callback] || 'Map.mapLocationAndFocus' }
+        format.js { render :json => {:focus => @location}, :callback => json_callback }
         format.xml  { render :xml => @location, :status => :created, :location => @location }
       else
         format.html { render :action => "new" }
-        format.js  { render :json => {:errors => @location.errors}, :status => :unprocessable_entity, :callback => params[:callback] || 'Map.mapLocationAndFocus'}
+        format.js  { render :json => {:errors => @location.errors}, :status => :unprocessable_entity, :callback => json_callback}
         format.xml  { render :xml => @location.errors, :status => :unprocessable_entity }
       end
     end
@@ -136,4 +136,11 @@ class LocationsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+private
+
+  def json_callback
+    params[:callback] || 'Map.callback'
+  end
+  
 end
