@@ -5,4 +5,4 @@ end.join(', ')
 
 result = Location.all(:select => "date(created_at) as date, #{counts}", :group => 'date', :order => 'created_at')
 -%>
-<%= image_tag "http://chart.apis.google.com/chart?chs=100x20&cht=ls&chco=0000FF,FF0000,FF00FF&chm=B,E6F2FA,0,0,0|B,f2a3a3,1,0,0|B,f1a6fc,1,0,0&chls=1,0,0&chd=t:#{result.map(&:blue_count).join(',')}|#{result.map(&:red_count).join(',')}|#{result.map(&:purple_count).join(',')}", :title => 'Graph of signs reported over time', :alt => 'Graph of signs reported over time' %>
+<%= image_tag "http://chart.apis.google.com/chart?chs=100x20&cht=ls&chco=0000FF,FF0000,FF00FF&chm=B,E6F2FA,0,0,0|B,f2a3a3,1,0,0|B,f1a6fc,2,0,0&chls=1,0,0&chd=t:#{result.map(&:blue_count).join(',')}|#{result.map(&:red_count).join(',')}|#{result.map(&:purple_count).join(',')}", :title => 'Graph of signs reported over time', :alt => 'Graph of signs reported over time' %>
