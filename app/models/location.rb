@@ -18,11 +18,15 @@ class Location < ActiveRecord::Base
   named_scope :with_geocodes, :include => {:geocoding => :geocode}
   
   named_scope :in_box, lambda{|northeast, southwest|
-    southwest_latitude, southwest_longitude = southwest.split(',')
-    northeast_latitude, northeast_longitude = northeast.split(',')
-    {:conditions => {:geocodes => {
-      :longitude => (southwest_longitude..northeast_longitude), 
-      :latitude => (southwest_latitude..northeast_latitude)}}}
+    if northeast && southwest
+      southwest_latitude, southwest_longitude = southwest.split(',')
+      northeast_latitude, northeast_longitude = northeast.split(',')
+      {:conditions => {:geocodes => {
+        :longitude => (southwest_longitude..northeast_longitude), 
+        :latitude => (southwest_latitude..northeast_latitude)}}}
+    else
+      {}
+    end
   }
   
   named_scope :sign_counts, :select => 'locations.signs, COUNT(locations.signs) AS count', :group => 'locations.signs', :order => 'count DESC'
@@ -37,6 +41,14 @@ class Location < ActiveRecord::Base
     locations = Location.all(:select => 'signs', :conditions => {:city => self.city, :state => self.state})
     info = locations.group_by(&:signs).max{|a,b| a[1].size <=> b[1].size}[1][0]
     {:signs => info.signs, :count => locations.size}
+  end
+  
+  def self.city_count 
+    count(:select => 'DISTINCT(city)')
+  end
+  
+  def self.state_count 
+    count(:select => 'DISTINCT(state)')
   end
 
 private

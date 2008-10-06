@@ -45,12 +45,28 @@ var Map = {
           northeast: bounds.getNorthEast().toUrlValue(),
           southwest: bounds.getSouthWest().toUrlValue()}} );
     } else {
-      new Ajax.Request('/cities.json', {method: 'get', 
-        parameters: {callback: 'Map.mapCities', 
-          northeast: bounds.getNorthEast().toUrlValue(),
-          southwest: bounds.getSouthWest().toUrlValue()}} );
-    }
+      Map.getCities(bounds);
+		}
   },
+
+	getCities: function(bounds, callback) {
+		var parameters = {callback: callback || 'Map.mapCities'};
+		if (bounds) {
+			parameters.northeast = bounds.getNorthEast().toUrlValue();
+			parameters.southwest = bounds.getSouthWest().toUrlValue();
+		}
+		new Ajax.Request('/cities.json', {method: 'get', parameters: parameters });
+	},
+	
+	mapCitiesAndZoom: function(cities) {
+		Map.mapCities(cities);
+		var bounds = new GLatLngBounds;
+		Map.cities.compact().each(function(city) {
+			bounds.extend(city.getLatLng());
+		});
+		Map.map.setZoom(Map.map.getBoundsZoomLevel(bounds));
+    Map.map.setCenter(bounds.getCenter());
+	},
   
   mapCities: function(cities) {
     cities.each(function(city){
@@ -62,7 +78,7 @@ var Map = {
       }
     });
   },
-  
+	 
   callback: function(data) {
     if(!Map.errors(data)) {
       if(data.locations) data.locations.each(Map.mapLocation);

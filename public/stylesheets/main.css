@@ -19,11 +19,16 @@
   font-weight: bold;
   text-align: center;
   }
-  #counts li.city, #counts li.state, #counts li.zip {
+  #counts li.city, #counts li.state, #counts li a {
     font-size: 14pt;
     color: #666;
     width: 49%;
+		text-decoration: none;
   }
+	#counts li a:hover {
+		color: #ff8c00;
+		text-decoration: underline;
+	}
 
 table {
   margin: 1em 0;

@@ -65,6 +65,20 @@ Event.addBehavior({
   'a.show:click': function(event) {
     event.stop();
     Map.findLocation(this.href);
-  }
+  },
+
+  'a.show_cities:click': function(event) {
+    event.stop();
+    Map.getCities(null, 'Map.mapCitiesAndZoom')
+  },
+
+	'a.show_states:click': function(event) {
+		event.stop();
+		var ne = "51.234407,-66.972656";
+		var sw = "23.966176,-128.496094"
+		
+		var bounds = new GLatLngBounds(new GLatLng(23.966176,-128.496094), new GLatLng(51.234407,-66.972656));
+		Map.getCities(bounds, 'Map.mapCitiesAndZoom')
+	}
 });
 Event.addBehavior.reassignAfterAjax = true;

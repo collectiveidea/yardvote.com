@@ -10,8 +10,8 @@
   <%- Location.sign_counts.each do |count| -%>
     <li class="<%=h count.signs.downcase %>"><%=h pluralize count.count, "#{count.signs} Yards" %></li>
   <%- end -%>
-  <li class="city"><%=h pluralize Location.count(:select => 'DISTINCT(city)'), 'City' %></li>
-  <li class="state"><%=h pluralize Location.count(:select => 'DISTINCT(state)'), 'State' %></li>
+  <li class="city"><%= link_to h(pluralize Location.city_count, 'City'), '', :class => 'show_cities' %></li>
+  <li class="state"><%= link_to h(pluralize Location.state_count, 'State'), '', :class => 'show_states' %></li>
 </ul>
 
 <div id="map"></div>
