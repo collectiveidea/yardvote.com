@@ -57,7 +57,7 @@ var Map = {
       if (!Map.cities[city.location.id]) {
         var point = new GLatLng(city.location.geocoding.geocode.latitude, city.location.geocoding.geocode.longitude);
         Map.cities[city.location.id] = new GMarker(point, {icon:Map.icon(city.location.city_info.signs)});
-        Map.cities[city.location.id].html = '<span class="'+city.location.city_info.signs.toLowerCase()+'">'+city.location.city+', '+city.location.state+'</span>'+city.location.city_info.count+' Yards<br>Leans '+city.location.city_info.signs;
+        Map.cities[city.location.id].html = '<span class="'+city.location.city_info.signs.toLowerCase()+'">'+city.location.city+', '+city.location.state+'</span>'+city.location.city_info.count+' Yards<br>Leans '+city.location.city_info.signs+'<br><a href="/locations/'+city.location.id+'" class="show">Zoom In</a>';
         Map.mgr.addMarker(Map.cities[city.location.id], 0, Map.zoomSwitch);
       }
     });
