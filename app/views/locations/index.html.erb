@@ -18,7 +18,8 @@
 
 <%= render :partial => 'form' %>
 
-<h2><%= params[:all] ? "All #{Location.count} Locations" : 'Recent Additions' %></h2>
+<h2><%= params[:all] ? "All #{Location.count} Locations" : 'Recent Additions' %>
+<%= render :partial => 'activity' %></h2>
 
 <%= link_to h("View all #{pluralize Location.count, 'location'}"), all_path unless params[:all] %>
 
