@@ -4,7 +4,7 @@
 
 <p>What can mapping Obama &amp; McCain yard signs tell us about our neighborhoods and political climate?  We don't know either, so we're trying to find out.</p>
 
-<p>We're starting in Holland, <abbr title="Michigan">MI</abbr> but want reports from everywhere. Join the fun by <%= link_to 'reporting a sign', '#new_location' %>.</p>
+<p>We started in Holland, <abbr title="Michigan">MI</abbr> but want reports from everywhere. Join the fun by <%= link_to 'reporting a sign', '#new_location' %>.</p>
 
 <ul id="counts">
   <%- Location.sign_counts.each do |count| -%>
@@ -23,35 +23,7 @@
 
 <%= link_to h("View all #{pluralize Location.count, 'location'}"), all_path unless params[:all] %>
 
-<table cellspacing="0">
-  <thead>
-    <tr>
-      <th></th>
-      <th>Street</th>
-      <th>City</th>
-      <th>State</th>
-      <th>Zip</th>
-      <th>Signs</th>
-      <th>Reported on</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
-<% @locations.each do |location| %>
-  <tbody>
-    <tr>
-      <td><%= link_to image_tag("http://labs.google.com/ridefinder/images/mm_20_#{location.signs.downcase}.png", :alt => location.signs), location %></td>
-      <td><%= link_to h(location.street), location, :class => 'show' %></td>
-      <td><%= link_to h(location.city), location, :class => 'show' %></td>
-      <td><%= link_to h(location.state), location, :class => 'show' %></td>
-      <td><%= link_to h(location.zip), location, :class => 'show' %></td>
-      <td><%= link_to h(location.signs), location, :class => 'show' %></td>
-      <td><%= link_to h(location.created_at.strftime('%d %B')), location, :class => 'show' %></td>
-      <td><%= link_to 'Edit', edit_location_path(location) %></td>
-      <td><%= link_to 'Remove', location, :class => 'destroy' %></td>
-    </tr>
-  </tbody>
-<% end %>
-</table>
+<%= render :partial => 'table' %>
 
 <%- unless params[:all] -%>
   <%= link_to h("View all #{pluralize Location.count, 'location'}"), all_path %> | 
