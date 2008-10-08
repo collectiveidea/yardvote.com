@@ -44,7 +44,8 @@ Event.addBehavior({
   'form.new_location:submit': function(event) {
     event.stop();
     this.request({
-      onSuccess: function() { this.reset(); }.bind(this)
+      onSuccess: function() { this.reset(); }.bind(this),
+      onFailure: Map.ajaxError
     });
   },
   
@@ -69,7 +70,7 @@ Event.addBehavior({
 
   'a.show_cities:click': function(event) {
     event.stop();
-    Map.getCities(null, 'Map.mapCitiesAndZoom')
+    Map.getCities(null, 'Map.mapCitiesAndZoom');
   },
 
 	'a.show_states:click': function(event) {

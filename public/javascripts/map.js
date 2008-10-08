@@ -43,7 +43,8 @@ var Map = {
       new Ajax.Request('/locations.json', {method: 'get', 
         parameters: {callback: 'Map.callback', 
           northeast: bounds.getNorthEast().toUrlValue(),
-          southwest: bounds.getSouthWest().toUrlValue()}} );
+          southwest: bounds.getSouthWest().toUrlValue()},
+        onFailure: Map.ajaxError} );
     } else {
       Map.getCities(bounds);
 		}
@@ -55,7 +56,7 @@ var Map = {
 			parameters.northeast = bounds.getNorthEast().toUrlValue();
 			parameters.southwest = bounds.getSouthWest().toUrlValue();
 		}
-		new Ajax.Request('/cities.json', {method: 'get', parameters: parameters });
+		new Ajax.Request('/cities.json', {method: 'get', parameters: parameters, onFailure: Map.ajaxError });
 	},
 	
 	mapCitiesAndZoom: function(cities) {
@@ -115,7 +116,8 @@ var Map = {
       $('map').scrollTo();      
     } else {
       new Ajax.Request(location_path+'.json', {method: 'get', 
-        parameters: {callback: 'Map.callback'}} );
+        parameters: {callback: 'Map.callback'},
+        onFailure: Map.ajaxError} );
     }
   },
   
@@ -133,7 +135,11 @@ var Map = {
     }
     return data.errors && !data.errors.empty();
   },
-
+  
+  ajaxError: function() {
+    Map.errors({errors: [['base', "Sorry, there has been an unexpected error. He have been notified and will look into it. Please contact us if you'd like to know what we discover."]]});
+  },
+  
   icons: {},
 
   icon: function(color) {
