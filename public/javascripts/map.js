@@ -69,7 +69,6 @@ var Map = {
   
   mapCities: function(cities) {
     return cities.collect(Map.mapCity, this);
-    // });
   },
   
   mapCity: function(city) {
