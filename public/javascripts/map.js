@@ -28,7 +28,17 @@ var Map = {
       GEvent.addListener(Map.map, "moveend", Map.refreshMarkers);
       GEvent.addListener(Map.map, "zoomend", Map.refreshMarkers);
     
-      Map.clusterer = new Clusterer(Map.map);  
+      Map.clusterer = new Clusterer(Map.map);
+      var clusterIcon = new GIcon();
+      clusterIcon.image = '/images/cluster.png';
+      clusterIcon.shadow = '/images/cluster-shadow.png';
+      clusterIcon.iconSize = new GSize(28, 28);
+      clusterIcon.shadowSize = new GSize(40, 28);
+      clusterIcon.iconAnchor = new GPoint(13, 34);
+      clusterIcon.infoWindowAnchor = new GPoint(13, 3);
+      clusterIcon.infoShadowAnchor = new GPoint(27, 37);
+      Map.clusterer.SetIcon(clusterIcon);
+      Map.clusterer.SetMinMarkersPerCluster(25)
       Map.refreshMarkers();
       Event.observe(window, "unload", GUnload);
     }
