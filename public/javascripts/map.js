@@ -1,7 +1,5 @@
 var Map = {
-  markers: [],
-  cities: [],
-  zoomSwitch: 10,
+  markers: {},
   
   show: function() {
     var mapDiv = $('map')
@@ -30,7 +28,7 @@ var Map = {
       GEvent.addListener(Map.map, "moveend", Map.refreshMarkers);
       GEvent.addListener(Map.map, "zoomend", Map.refreshMarkers);
     
-      Map.mgr = new MarkerManager(Map.map);    
+      Map.clusterer = new Clusterer(Map.map);  
       Map.refreshMarkers();
       Event.observe(window, "unload", GUnload);
     }
@@ -39,47 +37,11 @@ var Map = {
   refreshMarkers: function() {
     var bounds = Map.map.getBounds();
     
-    if (Map.map.getZoom() > Map.zoomSwitch) {
-      new Ajax.Request('/locations.json', {method: 'get', 
-        parameters: {callback: 'Map.callback', 
-          northeast: bounds.getNorthEast().toUrlValue(),
-          southwest: bounds.getSouthWest().toUrlValue()},
-        onFailure: Map.ajaxError} );
-    } else {
-      Map.getCities(bounds);
-		}
-  },
-
-	getCities: function(bounds, callback) {
-		var parameters = {callback: callback || 'Map.mapCities'};
-		if (bounds) {
-			parameters.northeast = bounds.getNorthEast().toUrlValue();
-			parameters.southwest = bounds.getSouthWest().toUrlValue();
-		}
-		new Ajax.Request('/cities.json', {method: 'get', parameters: parameters, onFailure: Map.ajaxError });
-	},
-	
-	mapCitiesAndZoom: function(cities) {
-		var bounds = new GLatLngBounds;
-		Map.mapCities(cities).each(function(city) {
-			bounds.extend(city.getLatLng());
-		});
-		Map.map.setZoom(Map.map.getBoundsZoomLevel(bounds));
-    Map.map.setCenter(bounds.getCenter());
-	},
-  
-  mapCities: function(cities) {
-    return cities.collect(Map.mapCity, this);
-  },
-  
-  mapCity: function(city) {
-    if (!Map.cities[city.location.id]) {
-      var point = new GLatLng(city.location.geocoding.geocode.latitude, city.location.geocoding.geocode.longitude);
-      Map.cities[city.location.id] = new GMarker(point, {icon:Map.icon(city.location.city_info.signs)});
-      Map.cities[city.location.id].html = '<span class="'+city.location.city_info.signs.toLowerCase()+'">'+city.location.city+', '+city.location.state+'</span>'+city.location.city_info.count+' Yards<br>Leans '+city.location.city_info.signs+'<br><a href="/locations/'+city.location.id+'" class="show">Zoom In</a>';
-      Map.mgr.addMarker(Map.cities[city.location.id], 0, Map.zoomSwitch);
-    }
-    return Map.cities[city.location.id];
+    new Ajax.Request('/locations.json', {method: 'get', 
+      parameters: {callback: 'Map.callback', 
+        northeast: bounds.getNorthEast().toUrlValue(),
+        southwest: bounds.getSouthWest().toUrlValue()},
+      onFailure: Map.ajaxError} );
   },
 	 
   callback: function(data) {
@@ -94,7 +56,7 @@ var Map = {
       var point = new GLatLng(data.location.geocoding.geocode.latitude, data.location.geocoding.geocode.longitude);
       Map.markers[data.location.id] = new GMarker(point, {icon:Map.icon(data.location.signs)});
       Map.markers[data.location.id].html = '<span class="'+data.location.signs.toLowerCase()+'">'+data.location.street+'</span>'+data.location.city+', '+data.location.state+' '+data.location.zip+'<br>Reported '+Date.parseISO8601(data.location.created_at).strftime('%B %d, %i:%M %p')+'<br><a href="/locations/'+data.location.id+'/edit">Edit</a> | <a href="/locations/'+data.location.id+'" class="destroy">Remove</a>';
-      Map.mgr.addMarker(Map.markers[data.location.id], Map.zoomSwitch+1);
+      Map.clusterer.AddMarker(Map.markers[data.location.id], data.location.street+', '+data.location.city+', '+data.location.state)
       return point;
     }
   },
