@@ -6,6 +6,8 @@
 
 <p>We started in Holland, <abbr title="Michigan">MI</abbr> but want reports from everywhere. Join the fun by <%= link_to 'reporting a sign', '#new_location' %>.</p>
 
+<%= render :partial => 'whats_new' %>
+
 <ul id="counts">
   <%- Location.sign_counts.each do |count| -%>
     <li class="<%=h count.signs.downcase %>"><%=h pluralize count.count, "#{count.signs} Yards" %></li>
