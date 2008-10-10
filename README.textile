@@ -1,0 +1,33 @@
+h1. YardVote.com 
+
+<a href="http://YardVote.com/">http://YardVote.com/</a>
+
+An experimental app to map who's displaying candidate signs before the election.
+
+The source is provided and contributions are welcome.  The app happens to be a simple example of three Collective Idea libraries, 
+
+* <a href="http://graticule.rubyforge.org/">Graticule</a>
+* <a href="http://graticule.rubyforge.org/plugin.html">acts_as_geocodable</a>
+* <a href="http://github.com/collectiveidea/acts_as_audited">acts_as_audited</a>
+
+h2. What's next?
+
+We're not sure. The initial goal was to get something to play with.  
+
+Want to help?  Want to add cool features?  Want to change the map focus to be more national?  The code is here so you can send us pull requests, patches, etc.
+
+h2. Installation
+
+We're using git-submodules, but otherwise its a simple Rails app.
+
+<pre><code>
+  git clone git://github.com/collectiveidea/political-signs.git
+  cd political-signs
+  git submodule init
+  git submodule update
+  cp config/database.sample.yml config/database.yml
+</code></pre>
+
+h2. Credits
+
+Created by Daniel Morrison of Collective Idea, after <a href="http://twitter.com/danielmorrison/statuses/928612487">pondering the idea via Twitter</a>
