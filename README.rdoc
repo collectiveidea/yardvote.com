@@ -1,8 +1,8 @@
-= Political Signs 
+= YardVote.com 
 
-http://signs.collectiveidea.com/
+<a href="http://YardVote.com/">http://YardVote.com/</a>
 
-A experimental app to map who's displaying candidate signs before the election.
+An experimental app to map who's displaying candidate signs before the election.
 
 The source is provided and contributions are welcome.  The app happens to be a simple example of two Collective Idea libraries, Graticule and acts_as_geocodable.
 
@@ -24,4 +24,4 @@ We're using git-submodules, but otherwise its a simple Rails app.
 
 == Credits
 
-Created by Daniel Morrison of Collective Idea, after pondering the idea via Twitter http://twitter.com/danielmorrison/statuses/928612487
+Created by Daniel Morrison of Collective Idea, after <a href="http://twitter.com/danielmorrison/statuses/928612487">pondering the idea via Twitter</a>
