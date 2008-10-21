@@ -2,29 +2,26 @@ class LocationsController < ApplicationController
   # GET /locations
   # GET /locations.xml
   def index
-    # ETags!
-    @last_updated_location = Location.find_with_deleted(:first, :order => 'updated_at DESC')
-    if @last_updated_location
-      response.last_modified = @last_updated_location.updated_at.utc
-      response.etag = @last_updated_location
-      head :not_modified and return if request.fresh?(response)
-    end
-  
-    respond_to do |format|
-      format.html do 
-        @locations = Location.with_geocodes.recent.all(params[:all] ? {} : {:limit => 15})
-        @location = Location.new(:signs => 'Blue')
-      end
-      format.json do
-        @locations = Location.with_geocodes.in_box(params[:northeast], params[:southwest])
-        render :json => {:locations => @locations}, :callback => json_callback
-      end
-      format.xml do
-        @locations = Location.with_geocodes
-        render :xml => @locations
-      end
-      format.atom do
-        @locations = Location.with_geocodes.recent        
+    # For ETags
+    @last = Location.find_with_deleted(:first, :order => 'updated_at DESC')
+
+    if @last.nil? || stale?(:last_modified => @last.updated_at.utc, :etag => @last)
+      respond_to do |format|
+        format.html do
+          @locations = Location.with_geocodes.recent.all(params[:all] ? {} : {:limit => 15})
+          @location = Location.new(:signs => 'Blue')
+        end
+        format.json do
+          @locations = Location.with_geocodes.in_box(params[:northeast], params[:southwest])
+          render :json => {:locations => @locations}, :callback => json_callback
+        end
+        format.xml do
+          @locations = Location.with_geocodes
+          render :xml => @locations
+        end
+        format.atom do
+          @locations = Location.with_geocodes.recent
+        end
       end
     end
   end
@@ -32,11 +29,9 @@ class LocationsController < ApplicationController
   def removed
     # ETags!
     @last_updated_location = Location.find_with_deleted(:first, :order => 'updated_at DESC')
-    response.last_modified = @last_updated_location.updated_at.utc
-    response.etag = @last_updated_location
-    head :not_modified and return if request.fresh?(response)
-  
-    @locations = Location.with_geocodes.recent.find_only_deleted(:all)
+    if @last_updated_location.nil? || stale?(:last_modified => @last_updated_location.updated_at.utc, :etag => @last_updated_location)
+      @locations = Location.with_geocodes.recent.find_only_deleted(:all)
+    end
   end
 
   # GET /locations/1
@@ -44,15 +39,12 @@ class LocationsController < ApplicationController
   def show
     @location = Location.find_with_deleted(params[:id])
     
-    # ETags!
-    response.last_modified = @location.updated_at.utc
-    response.etag = @location
-    head :not_modified and return if request.fresh?(response)
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @location, :callback => json_callback }
-      format.xml  { render :xml => @location }
+    if stale?(:last_modified => @location.updated_at.utc, :etag => @location)
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render :json => @location, :callback => json_callback }
+        format.xml  { render :xml => @location }
+      end
     end
   end
 
