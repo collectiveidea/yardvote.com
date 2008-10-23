@@ -35,7 +35,7 @@ set :deploy_to, "/home/voter/#{application}"
 set :user, "voter"            # defaults to the currently logged in user
 set :use_sudo, false
 set :scm, :git
-set :branch, 'clusterer'
+set :branch, 'master'
 set :git_enable_submodules, true 
 set :deploy_via, :remote_cache
 set :ssh_options, {:forward_agent => true}
