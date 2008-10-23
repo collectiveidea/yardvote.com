@@ -1,45 +1,26 @@
 <% form_for(@location) do |f| %>
   <%= f.error_messages %>
+  <h2>Add a Sign</h2>
   
+  <fieldset class="address">
+    <%= f.label :street, "Address" %>
+    <%= f.text_field :street %>
+  </fieldset>
+
   <fieldset class="sign">
-    <legend>Report a Sign</legend>
-  
     <ul>
       <% Location::SIGN_OPTIONS.sort_by {|k,_| k }.each do |sign,description| %>
         <li>
           <%= f.radio_button :signs, sign %>
-          <label for="location_signs_<%= sign.downcase %>">
-            <span class="<%=h sign.downcase %>"><%= sign %></span>
+          <label for="location_signs_<%= sign.downcase %>" class="<%= sign.downcase %>">
             <%=h description %>
           </label>
         </li>
       <% end %>
     </ul>
   </fieldset>
-  
-  <fieldset class="address">
-    <legend>Where is it?</legend>
-    <ol>
-      <li class="street">
-        <%= f.label :street %>
-        <%= f.text_field :street, :size => 25 %>
-      </li>
-      <li class="city">
-        <%= f.label :city %>
-        <%= f.text_field :city, :size => 25 %>
-      </li>
-      <li class="state">
-        <%= f.label :state %>
-        <%= f.text_field :state, :size => 2 %>
-      </li>
-      <li class="zip">
-        <%= f.label :zip %>
-        <%= f.text_field :zip, :size => 10 %>
-      </li>
-    </ol>
-  </fieldset>
-  
+
   <fieldset class="buttons">
-    <%= f.submit "Save" %>
+    <input type="image" src="/images/save.gif" alt="Save" />
   </fieldset>
 <% end %>

@@ -2,25 +2,13 @@
   <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<%=h GOOGLE_MAPS_API_KEY %>" type="text/javascript"></script>
 <%- end -%>
 
-<p>What can mapping Obama &amp; McCain yard signs tell us about our neighborhoods and political climate?  We don't know either, so we're trying to find out.</p>
-
-<p>We started in Holland, <abbr title="Michigan">MI</abbr> but want reports from everywhere. Join the fun by <%= link_to 'reporting a sign', '#new_location' %>.</p>
-
-<%= render :partial => 'whats_new' %>
-
-<ul id="counts">
-  <%- Location.sign_counts.each do |count| -%>
-    <li class="<%=h count.signs.downcase %>"><%=h pluralize count.count, "#{count.signs} Yards" %></li>
-  <%- end -%>
-  <li class="city"><%= h(pluralize Location.city_count, 'City') %></li>
-  <li class="state"><%= h(pluralize Location.state_count, 'State') %></li>
-</ul>
-
 <div id="map"></div>
 
-<%= render :partial => 'form' %>
+<% content_for :footer do %>
+  <%= render :partial => 'form' %>
+<% end %>
 
-<h2><%= params[:all] ? "All #{Location.count} Locations" : 'Recent Additions' %>
+<!-- <h2><%= params[:all] ? "All #{Location.count} Locations" : 'Recent Additions' %>
 <%= render :partial => 'activity' %></h2>
 
 <%= link_to h("View all #{pluralize Location.count, 'location'}"), all_path unless params[:all] %>
@@ -33,4 +21,4 @@
 
 <%= link_to 'View changes', audits_path %> |
 <%= link_to 'View removed signs', removed_locations_path %> |
-<%= link_to 'Add a location', '#new_location' %>
+<%= link_to 'Add a location', '#new_location' %> -->

@@ -1,8 +1,8 @@
 class Location < ActiveRecord::Base
   SIGN_OPTIONS = {
-    'Blue'   => 'Obama & Democrats',
-    'Red'    => 'McCain & Republicans',
-    'Purple' => 'combination (ex. Obama + Republican Senator)'
+    'Blue'   => 'Democrats',
+    'Red'    => 'Republicans',
+    'Purple' => 'Both'
   }
   
   acts_as_geocodable :address => {:street => :street, :locality => :city,
