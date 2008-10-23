@@ -1,4 +1,21 @@
 class Location < ActiveRecord::Base
+  def self.existing_address(location)
+    location.send :attach_geocode
+    # find others with the same address
+    Location.first(:conditions => {:street => location.street, :city => location.city, :state => location.state, :zip => location.zip})
+  end
+  
+  def self.new_from_email(source)
+    attrs, email = {}, TMail::Mail.parse(source)
+    attrs[:signs]   = email.subject.blank? ? '' : email.subject.downcase.strip.titleize
+    attrs[:street]  = parse_address(email.body)
+    new(attrs)
+  end
+  
+  def self.parse_address(body)
+    body.split("\n\n").first
+  end
+  
   SIGN_OPTIONS = {
     'Blue'   => 'Obama & Democrats',
     'Red'    => 'McCain & Republicans',
@@ -43,14 +60,8 @@ class Location < ActiveRecord::Base
   def self.state_count 
     count(:select => 'DISTINCT(state)')
   end
-
-private
-  def self.existing_address(location)
-    location.send :attach_geocode
-    # find others with the same address
-    Location.first(:conditions => {:street => location.street, :city => location.city, :state => location.state, :zip => location.zip})
-  end
   
+private
   def check_geocode_precision
     attach_geocode
     errors.add_to_base "We can't find a precise enough address match." if geocode.blank? || geocode.precision != 'address'
