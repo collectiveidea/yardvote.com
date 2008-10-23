@@ -31,12 +31,12 @@ var Map = {
       Map.clusterer = new Clusterer(Map.map);
       var clusterIcon = new GIcon();
       clusterIcon.image = '/images/cluster.png';
-      clusterIcon.shadow = '/images/cluster-shadow.png';
-      clusterIcon.iconSize = new GSize(28, 28);
-      clusterIcon.shadowSize = new GSize(40, 28);
-      clusterIcon.iconAnchor = new GPoint(13, 34);
-      clusterIcon.infoWindowAnchor = new GPoint(13, 3);
-      clusterIcon.infoShadowAnchor = new GPoint(27, 37);
+      clusterIcon.shadow = '/images/cluster_shadow.png';
+      clusterIcon.iconSize = new GSize(60, 45);
+      clusterIcon.shadowSize = new GSize(60, 45);
+      clusterIcon.iconAnchor = new GPoint(30, 39);
+      clusterIcon.infoWindowAnchor = new GPoint(30, 39);
+      clusterIcon.infoShadowAnchor = new GPoint(0, 0);
       Map.clusterer.SetIcon(clusterIcon);
       Map.clusterer.SetMinMarkersPerCluster(25)
       Map.refreshMarkers();
@@ -117,12 +117,12 @@ var Map = {
   icon: function(color) {
     if (!Map.icons[color]) {
       Map.icons[color] = new GIcon(G_DEFAULT_ICON);
-      Map.icons[color].image = 'http://labs.google.com/ridefinder/images/mm_20_' + color.toLowerCase() + '.png';
-      Map.icons[color].shadow = 'http://labs.google.com/ridefinder/images/mm_20_shadow.png';
-      Map.icons[color].iconSize = new GSize(12, 20);
-      Map.icons[color].shadowSize = new GSize(22, 20);
-      Map.icons[color].iconAnchor = new GPoint(6, 20);
-      Map.icons[color].infoWindowAnchor = new GPoint(5, 1);    
+      Map.icons[color].image = '/images/'+ color.toLowerCase() + '.png';
+      Map.icons[color].shadow = '/images/sign_shadow.png';
+      Map.icons[color].iconSize = new GSize(13, 19);
+      Map.icons[color].shadowSize = new GSize(13, 19);
+      Map.icons[color].iconAnchor = new GPoint(7, 16);
+      Map.icons[color].infoWindowAnchor = new GPoint(7, 16);    
     }
     return Map.icons[color];
   }

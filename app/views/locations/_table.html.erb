@@ -14,7 +14,7 @@
 <% @locations.each do |location| %>
   <tbody>
     <tr>
-      <td><%= link_to image_tag("http://labs.google.com/ridefinder/images/mm_20_#{location.signs.downcase}.png", :alt => location.signs), location %></td>
+      <td><%= link_to image_tag("#{location.signs.downcase}.png", :alt => location.signs), location %></td>
       <td><%= link_to h(location.street), location, :class => 'show' %></td>
       <td><%= link_to h(location.city), location, :class => 'show' %></td>
       <td><%= link_to h(location.state), location, :class => 'show' %></td>

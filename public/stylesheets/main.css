@@ -123,19 +123,19 @@ fieldset.sign label span {
   color: #369;
   }
   #map span.blue {
-    background: url(http://labs.google.com/ridefinder/images/mm_20_blue.png) no-repeat top left;
+    background: url(../images/blue.png) no-repeat top left;
   }
 .purple {
   color: #909;
   }
   #map span.purple {
-    background: url(http://labs.google.com/ridefinder/images/mm_20_purple.png) no-repeat top left;
+    background: url(../images/purple.png) no-repeat top left;
   }
 .red {
   color: #C00;
   }
   #map span.red {
-    background: url(http://labs.google.com/ridefinder/images/mm_20_red.png) no-repeat top left;
+    background: url(../images/red.png) no-repeat top left;
   }
 
 fieldset.address input {
