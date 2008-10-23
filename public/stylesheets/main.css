@@ -138,6 +138,10 @@ fieldset.sign label span {
     background: url(../images/red.png) no-repeat top left;
   }
 
+fieldset.address {
+  margin-left: 43%;
+}
+
 fieldset.address input {
   font-size: 2em;
 }
@@ -184,9 +188,16 @@ fieldset p {
   float: none;
 }
 fieldset.buttons {
-  text-align: center;
-  margin-top: 1em;
+  margin: 1em 0 1em 43%;
   clear: both;
+}
+fieldset.buttons input {
+  font-size: 2em;
+}
+form.loading .buttons {
+  overflow: hidden;
+  text-indent: -2000px;
+  background: url(../images/loading.gif) no-repeat left center;
 }
 
 body {
