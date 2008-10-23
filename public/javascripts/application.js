@@ -44,7 +44,9 @@ Event.addBehavior({
   'form.new_location:submit': function(event) {
     event.stop();
     this.request({
-      onSuccess: function() { this.reset(); }.bind(this),
+      onLoading:  function() { this.addClassName('loading'); }.bind(this),
+      onComplete: function() { this.removeClassName('loading'); }.bind(this),
+      onSuccess:  function() { this.reset(); }.bind(this),
       onFailure: Map.ajaxError
     });
   },
