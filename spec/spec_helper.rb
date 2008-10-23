@@ -45,3 +45,7 @@ Spec::Runner.configure do |config|
   # 
   # For more information take a look at Spec::Example::Configuration and Spec::Runner
 end
+
+def email_fixture(name)
+  File.read(File.join(File.dirname(__FILE__), 'fixtures', 'emails', name.to_s))
+end
