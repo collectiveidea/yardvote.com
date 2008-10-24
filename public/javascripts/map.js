@@ -41,6 +41,7 @@ var Map = {
       Map.clusterer.SetMinMarkersPerCluster(25)
       Map.refreshMarkers();
       Event.observe(window, "unload", GUnload);
+      mapDiv.removeClassName('loading');
     }
   },
   
