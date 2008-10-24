@@ -256,25 +256,25 @@ input.inactive {
   padding-bottom: 1em;
 }
 
-table {
+table.locations {
   width: 100%;
   margin: 1em 0;
 }
 
-table th {
+table.locations th {
   padding: 0 .5em;
   text-align: left;
 }
 
-tbody tr:hover {
+table.locations tbody tr:hover {
   background-color: #ddd;
 }
 
-td {
+table.locations td {
   border: none;
   margin: 0;
   }
-  td a {
+  table.locations td a {
     padding: 0 .5em;
     display: block;
     height: 100%;
