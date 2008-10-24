@@ -50,9 +50,16 @@
     
     
     <script type="text/javascript">
-    	Event.observe(window, 'dom:loaded', function() {
-        new FancyZoom('about-yardvote');
-      });
+      if (Prototype.Browser.IE) {
+      	Event.observe(window, 'load', function() {
+          new FancyZoom('about-yardvote');
+        });
+      } else {
+      	Event.observe(window, 'dom:loaded', function() {
+          new FancyZoom('about-yardvote');
+        });
+      }
+      
     </script>
   </body>
 </html>
