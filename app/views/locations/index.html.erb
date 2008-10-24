@@ -2,7 +2,7 @@
   <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=<%=h GOOGLE_MAPS_API_KEY %>" type="text/javascript"></script>
 <%- end -%>
 
-<div id="map"></div>
+<div id="map" class="loading"></div>
 
 <% content_for :footer do %>
   <%= render :partial => 'form' %>
