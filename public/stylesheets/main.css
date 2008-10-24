@@ -3,6 +3,8 @@ body {
   padding: 0;
   font-size: 13px;
   background-color: #2F3335;
+  height: 100%;
+  
 }
 body, input {
   font-family: Helvetica, Arial, sans-serif;
@@ -101,6 +103,7 @@ img {
 
 #content {
   position: fixed;
+  height: 100%;
   top: 68px;
   bottom: 40px;
   left: 0;
