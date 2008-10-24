@@ -8,6 +8,9 @@ body, input {
   font-family: Helvetica, Arial, sans-serif;
 }
 
+img {
+  border: none;
+}
 
 #collectiveidea {
   background-color: #212425 !important;
@@ -28,12 +31,16 @@ body, input {
 
 #header h1 {
   margin: 0;
+  float: left;
+}
+
+#header h1 a {
   text-indent: -2000px;
   overflow: hidden;
+  display: block;
   width: 139px;
   height: 39px;
   background: url(../images/logo.gif) no-repeat;
-  float: left;
 }
 
 #header a {
@@ -130,7 +137,7 @@ fieldset {
 
 #new_location .address input {
   width: 97%;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: bold;
   color: #444;
 }
@@ -160,7 +167,7 @@ fieldset {
 #new_location .sign label {
   background: url(../images/blue.gif) no-repeat left center;
   padding: 4px 0 4px 28px;
-  margin-left: -8px;
+  margin-left: -4px;
 }
 
 #new_location .sign label.red {
@@ -182,5 +189,60 @@ fieldset {
 #new_location .buttons {
   position: absolute;
   right: 20px;
-  top: 6px;
+  top: 0px;
+  line-height: 1;
+  padding-top: 6px;
+}
+
+#new_location.loading .buttons {
+  overflow: hidden;
+  text-indent: -2000px;
+  width: 72px;
+  background: url(../images/saving.gif) no-repeat center;
+}
+
+#new_location .error {
+  background: url(../images/error.png) no-repeat 1em 1em;
+  list-style: none;
+  position: absolute;
+  width: 300px;
+  bottom: 40px;
+  background-color: #FFC;
+  border: 1px solid #DDC;
+  color: #666;
+  line-height: 1.5;
+  padding: 1em 1em 1em 3em;
+  left: 50%;
+  margin-left: -150px;
+}
+
+#page {
+  width: 600px;
+  margin: 0 auto;
+  padding-bottom: 1em;
+}
+
+table {
+  width: 100%;
+}
+
+table th {
+  text-align: left;
+}
+
+#about {
+  display: none;
+  position: absolute;
+  top: 15%;
+  bottom: 15%;
+  left: 50%;
+  margin-left: -200px;
+  width: 400px;
+  background-color: #EEE;
+  border: 1px solid #CCC;
+  padding: 1em;
+  overflow: auto;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
 }

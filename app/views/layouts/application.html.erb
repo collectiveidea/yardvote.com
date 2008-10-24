@@ -30,7 +30,19 @@
         <%= yield :footer %>
       </div>
     </div>
-    <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/prototype/1.6/prototype.js' %>
+    <div id="about">
+      <p>What can mapping yard signs tell us about our neighborhoods and political climate? We don't know either, so we're trying to find out.</p>
+      
+      <p>We started in Holland, <abbr title="Michigan">MI</abbr> but want reports from everywhere. Join the fun by <%= link_to 'reporting a sign', '#new_location' %>.</p>
+      
+      <%= render :partial => 'whats_new' %>
+    </div>
+    
+    <% if RAILS_ENV == 'production' %>
+      <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/prototype/1.6/prototype.js' %>
+    <% else %>
+      <%= javascript_include_tag 'prototype' %>
+    <% end %>
     <%= javascript_include_tag 'http://collectiveidea.com/javascripts/ideabar.js' %>
     <%= yield(:foot) -%>
     <%= javascript_include_tag 'lowpro', 'application', 'iso8601', 'strftime', 'Clusterer2', 'map', :cache => true %>

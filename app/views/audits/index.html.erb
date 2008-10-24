@@ -1,10 +1,12 @@
-<h2>Audit Log</h2>
+<div id="page">
+  <h2>Audit Log</h2>
 
-<p>You can freely edit and delete anything on YardVote. Here's what has happened recently.</p>
+  <p>You can freely edit and delete anything on YardVote. Here's what has happened recently.</p>
 
-<dl>
-  <%= render :partial => @audits %>
-</dl>
+  <dl>
+    <%= render :partial => @audits %>
+  </dl>
 
-<%= link_to 'Back to Map', root_path %> | 
-<%= link_to 'View removed signs', removed_locations_path %>
+  <%= link_to 'Back to Map', root_path %> | 
+  <%= link_to 'View removed signs', removed_locations_path %>
+</p>

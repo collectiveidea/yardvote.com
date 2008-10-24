@@ -9,7 +9,7 @@ class LocationsController < ApplicationController
       respond_to do |format|
         format.html do
           @locations = Location.with_geocodes.recent.all(params[:all] ? {} : {:limit => 15})
-          @location = Location.new(:signs => 'Blue')
+          @location = Location.new
         end
         format.json do
           @locations = Location.with_geocodes.in_box(params[:northeast], params[:southwest])

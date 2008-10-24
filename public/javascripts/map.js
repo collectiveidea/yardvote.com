@@ -94,26 +94,25 @@ var Map = {
   },
   
   errors: function(data) {
-    $$('form fieldset.address ol li.error').invoke('remove');
+    $$('form .error').invoke('remove');
     if (data.errors) {
-      var list = $$('form fieldset.address ol').first();
-      data.errors.each(function(error) {
+      var form = $$('form').first();
+      var messages = data.errors.map(function(error) {
         var message = '';
-        if (error[0] != 'base') {
-          message = message + error[0] + ' ';
-        }
-        list.insert({top: '<li class="error">'+message.capitalize()+error[1]+'</li>'});
+        if (error[0] != 'base') message = error[0].capitalize() + ' ';
+        return '<li>' + message + error[1] + '</li>';
       });
+      form.insert({top: '<ul class="error">' + messages.join('') + '</ul>'});
     }
     return data.errors && !data.errors.empty();
   },
   
   ajaxError: function() {
-    Map.errors({errors: [['base', "Sorry, there has been an unexpected error. He have been notified and will look into it. Please contact us if you'd like to know what we discover."]]});
+    Map.errors({errors: [['base', "Sorry, there has been an unexpected error. We have been notified and will look into it. Please contact us if you'd like to know what we discover."]]});
   },
   
   icons: {},
-
+  
   icon: function(color) {
     if (!Map.icons[color]) {
       Map.icons[color] = new GIcon(G_DEFAULT_ICON);
