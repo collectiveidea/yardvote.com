@@ -75,6 +75,26 @@ img {
   color: #96C;
 }
 
+#map span.blue, #map span.purple, #map span.red {
+  padding-left: 2em;
+  height: 20px;
+  display: block;
+  font-weight: bold;
+}
+
+#map span.blue {
+  color: #369;
+  background: url(../images/blue.png) no-repeat top left;
+}
+#map span.purple {
+  color: #909;
+  background: url(../images/purple.png) no-repeat top left;
+}
+#map span.red {
+  color: #C00;
+  background: url(../images/red.png) no-repeat top left;
+}
+
 #header .city, #header .state {
   color: #6D7172;
 }
@@ -193,9 +213,6 @@ input.inactive {
 
 #new_location .sign label.purple {
   background-image: url(../images/split.gif);
-}
-
-#new_location label.blue  {
 }
 
 #new_location .sign input {
