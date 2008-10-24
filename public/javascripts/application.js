@@ -40,8 +40,28 @@ Anchor.Methods = {
 }
 Element.addMethods('a', Anchor.Methods);
 
+var DefaultInputValue = Behavior.create({
+  initialize: function() {
+    this.onblur();
+  },
+  
+  onfocus: function() {
+    if(this.element.value == this.element.title) {
+      this.element.removeClassName('inactive');
+      this.element.value = '';
+    }
+  },
+  
+  onblur: function() {
+    if(this.element.value.empty()) {
+      this.element.addClassName('inactive');
+      this.element.value = this.element.title;
+    }
+  }
+});
+
 Event.addBehavior({
-  'form.new_location:submit': function(event) {
+  'form#new_location:submit': function(event) {
     event.stop();
     this.request({
       onLoading:  function() { this.addClassName('loading'); }.bind(this),
@@ -50,6 +70,8 @@ Event.addBehavior({
       onFailure: Map.ajaxError
     });
   },
+  
+  '#location_street': DefaultInputValue,
   
   'a.destroy:click': function(event) {
     event.stop();
@@ -84,4 +106,5 @@ Event.addBehavior({
 		Map.getCities(bounds, 'Map.mapCitiesAndZoom')
 	}
 });
+
 Event.addBehavior.reassignAfterAjax = true;
