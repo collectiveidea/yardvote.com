@@ -45,14 +45,14 @@ var DefaultInputValue = Behavior.create({
     this.onblur();
   },
   
-  onfocus: function(event) {
+  onfocus: function() {
     if(this.element.value == this.element.title) {
       this.element.removeClassName('inactive');
       this.element.value = '';
     }
   },
   
-  onblur: function(event) {
+  onblur: function() {
     if(this.element.empty()) {
       this.element.addClassName('inactive');
       this.element.value = this.element.title;
