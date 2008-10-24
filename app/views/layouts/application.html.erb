@@ -16,7 +16,7 @@
           <%- end -%>
           <li class="city"><%= h(pluralize Location.city_count, 'City') %></li>
           <li class="state"><%= h(pluralize Location.state_count, 'State') %></li>
-          <li class="about"><a href="">About YardVote</a></li>
+          <li class="about"><a href="#about" id="about-yardvote">About YardVote</a></li>
         </ul>
       </div>
       <div id="content">
@@ -30,7 +30,7 @@
         <%= yield :footer %>
       </div>
     </div>
-    <div id="about">
+    <div id="about" style="display: none;">
       <p>What can mapping yard signs tell us about our neighborhoods and political climate? We don't know either, so we're trying to find out.</p>
       
       <p>We started in Holland, <abbr title="Michigan">MI</abbr> but want reports from everywhere. Join the fun by <%= link_to 'reporting a sign', '#new_location' %>.</p>
@@ -40,11 +40,19 @@
     
     <% if RAILS_ENV == 'production' %>
       <%= javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/prototype/1.6/prototype.js' %>
+    	<%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/scriptaculous.js" %>
     <% else %>
-      <%= javascript_include_tag 'prototype' %>
+      <%= javascript_include_tag 'prototype', 'effects', 'controls' %>
     <% end %>
     <%= javascript_include_tag 'http://collectiveidea.com/javascripts/ideabar.js' %>
     <%= yield(:foot) -%>
-    <%= javascript_include_tag 'lowpro', 'application', 'iso8601', 'strftime', 'Clusterer2', 'map', :cache => true %>
+    <%= javascript_include_tag 'lowpro', 'application', 'iso8601', 'strftime', 'Clusterer2', 'map', 'fancyzoom', :cache => true %>
+    
+    
+    <script type="text/javascript">
+    	Event.observe(window, 'dom:loaded', function() {
+        new FancyZoom('about-yardvote');
+      });
+    </script>
   </body>
 </html>
