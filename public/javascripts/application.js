@@ -53,7 +53,7 @@ var DefaultInputValue = Behavior.create({
   },
   
   onblur: function(event) {
-    if(this.element.value == '') {
+    if(this.element.empty()) {
       this.element.addClassName('inactive');
       this.element.value = this.element.title;
     }
