@@ -3,6 +3,8 @@ require File.join(File.dirname(__FILE__), '..', 'config', 'environment')
 require 'net/imap'
 require 'net/http'
 
+SLEEP_TIME = 60
+
 config = YAML.load(File.read(File.join(RAILS_ROOT, 'config', 'mail.yml')))
 
 loop do
@@ -46,5 +48,5 @@ loop do
     puts "Error: #{e.message}"
   end
   
-  sleep(20)
+  sleep(SLEEP_TIME)
 end
