@@ -7,3 +7,4 @@ db/*.sqlite3
 .rake_tasks
 backups
 coverage
+index.yaml
