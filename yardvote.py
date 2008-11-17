@@ -24,7 +24,7 @@ class MainPage(webapp.RequestHandler):
       'locations': locations,
       }
 
-    path = os.path.join(os.path.dirname(__file__), 'index.html')
+    path = os.path.join(os.path.dirname(__file__), 'app', 'views', 'locations', 'index.html')
     self.response.out.write(template.render(path, template_values))
 
 class MainPageJson(webapp.RequestHandler):
@@ -36,7 +36,7 @@ class MainPageJson(webapp.RequestHandler):
       'locations': locations,
       }
 
-    path = os.path.join(os.path.dirname(__file__), 'index.json')
+    path = os.path.join(os.path.dirname(__file__), 'app', 'views', 'locations', 'index.json')
     self.response.out.write(template.render(path, template_values))
 
 class CreateLocation(webapp.RequestHandler):
