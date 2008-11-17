@@ -1,0 +1,46 @@
+{% extends "../layouts/application.html" %}
+{% block primary %}
+	<div id="map" class="loading"></div>
+{% endblock primary %}
+
+{% block footer %}
+	<form action="/locations?callback=Map.mapLocationAndFocus" method="post" id="new_location" class="new_location">
+    <h2>Add a Sign</h2>
+
+    <fieldset class="address">
+      <label for="location_address">Address</label>
+      <input type="text" name="address" id="location_address" title="Address, City State or Zip">
+    </fieldset>
+
+    <fieldset class="sign">
+      <ul>
+        <li>
+          <input type="radio" name="signs" value="Blue" id="location_signs_blue">
+          <label for="location_signs_blue" class="blue">
+            Democrats
+          </label>
+        </li>
+        <li>
+          <input type="radio" name="signs" value="Red" id="location_signs_red">
+          <label for="location_signs_red" class="red">
+            Republicans
+          </label>
+        </li>
+        <li>
+          <input type="radio" name="signs" value="Purple" id="location_signs_purple">
+          <label for="location_signs_purple" class="purple">
+            Both
+          </label>
+        </li>
+      </ul>
+    </fieldset>
+
+    <fieldset class="buttons">
+      <input type="image" src="/images/save.gif" alt="Save">
+    </fieldset>
+  </form>
+{% endblock footer %}
+
+{% block foot %}
+  <script type="text/javascript" src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAE9hN8xY_NuBwpBcO0Ku_8xQ137Zavhclf1DNp1U-9spSMxNpkBThjsPwD2OyO0LR7EZjdhbOwKdFpw"></script>
+{% endblock foot %}

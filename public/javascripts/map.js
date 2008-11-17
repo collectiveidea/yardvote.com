@@ -52,7 +52,7 @@ var Map = {
       parameters: {callback: 'Map.callback', 
         northeast: bounds.getNorthEast().toUrlValue(),
         southwest: bounds.getSouthWest().toUrlValue()},
-      onFailure: Map.ajaxError} );
+      onFailure: Map.ajaxError, evalJS: true} );
   },
 	 
   callback: function(data) {
@@ -64,10 +64,11 @@ var Map = {
   
   mapLocation: function(data) {
     if (!Map.markers[data.location.id]) {
-      var point = new GLatLng(data.location.geocoding.geocode.latitude, data.location.geocoding.geocode.longitude);
+      var point = new GLatLng(data.location.geocode.latitude, data.location.geocode.longitude);
       Map.markers[data.location.id] = new GMarker(point, {icon:Map.icon(data.location.signs)});
-      Map.markers[data.location.id].html = '<span class="'+data.location.signs.toLowerCase()+'">'+data.location.street+'</span>'+data.location.city+', '+data.location.state+' '+data.location.zip+'<br>Reported '+Date.parseISO8601(data.location.created_at).strftime('%B %d, %i:%M %p')+'<br><a href="/locations/'+data.location.id+'/edit">Edit</a> | <a href="/locations/'+data.location.id+'" class="destroy">Remove</a>';
-      Map.clusterer.AddMarker(Map.markers[data.location.id], data.location.street+', '+data.location.city+', '+data.location.state)
+      Map.markers[data.location.id].html = data.location.address;
+      // Map.markers[data.location.id].html = '<span class="'+data.location.signs.toLowerCase()+'">'+data.location.street+'</span>'+data.location.city+', '+data.location.state+' '+data.location.zip+'<br>Reported '+Date.parseISO8601(data.location.created_at).strftime('%B %d, %i:%M %p')+'<br><a href="/locations/'+data.location.id+'/edit">Edit</a> | <a href="/locations/'+data.location.id+'" class="destroy">Remove</a>';
+      Map.clusterer.AddMarker(Map.markers[data.location.id], data.location.address)
       return point;
     }
   },

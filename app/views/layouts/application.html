@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>YardVote.com</title>
+    <link type="text/css" href="/stylesheets/main.css" media="screen" rel="stylesheet">
+  </head>
+  <body>
+    <div id="main">
+      <div id="header">
+        <h1><a href="/" rel="bookmark home">YardVote.com</a></h1>
+        
+      </div>
+      <div id="content">
+        {% block primary %}{% endblock %}
+        <div id="map" class="loading"></div>
+      </div>
+      <div id="footer">
+        {% block footer %}{% endblock %}
+      </div>
+    </div>
+    <div id="about" style="display: none;">
+      <p>What can mapping yard signs tell us about our neighborhoods and political climate? We don't know either, so we're trying to find out.</p>
+      
+      <p>We started in Holland, <abbr title="Michigan">MI</abbr> but want reports from everywhere. Join the fun by <a href="#new_location">reporting a sign</a>.</p>
+      
+    </div>
+    
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/prototype/1.6/prototype.js"></script>
+    	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.1/scriptaculous.js"></script>
+    <script type="text/javascript" src="http://collectiveidea.com/javascripts/ideabar.js"></script>
+    {% block foot %}{% endblock %}
+    <script type="text/javascript" src="/javascripts/lowpro.js"></script>
+    <script type="text/javascript" src="/javascripts/application.js"></script>
+    <script type="text/javascript" src="/javascripts/iso8601.js"></script>
+    <script type="text/javascript" src="/javascripts/strftime.js"></script>
+    <script type="text/javascript" src="/javascripts/Clusterer2.js"></script>
+    <script type="text/javascript" src="/javascripts/map.js"></script>
+    <script type="text/javascript" src="/javascripts/fancyzoom.js"></script>
+    <script type="text/javascript">
+      if (Prototype.Browser.IE) {
+      	Event.observe(window, 'load', function() {
+          new FancyZoom('about-yardvote');
+        });
+      } else {
+      	Event.observe(window, 'dom:loaded', function() {
+          new FancyZoom('about-yardvote');
+        });
+      }
+      
+    </script>
+  </body>
+</html>

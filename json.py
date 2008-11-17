@@ -30,7 +30,6 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from django.utils import simplejson
 
-
 class GqlEncoder(simplejson.JSONEncoder):
   
   """Extends JSONEncoder to add support for GQL results and properties.
@@ -57,14 +56,16 @@ class GqlEncoder(simplejson.JSONEncoder):
       for field, value in properties:
         output[field] = getattr(obj, field)
       output['id'] = obj.key().id()
-      return output
+      return {obj.kind().lower():output}
 
     elif isinstance(obj, datetime.datetime):
       output = {}
-      fields = ['day', 'hour', 'microsecond', 'minute', 'month', 'second',
-          'year']
-      methods = ['ctime', 'isocalendar', 'isoformat', 'isoweekday',
-          'timetuple']
+      # fields = ['day', 'hour', 'microsecond', 'minute', 'month', 'second',
+      #     'year']
+      # methods = ['ctime', 'isocalendar', 'isoformat', 'isoweekday',
+      #     'timetuple']
+      fields = []
+      methods = ['isoformat']
       for field in fields:
         output[field] = getattr(obj, field)
       for method in methods:
@@ -81,6 +82,9 @@ class GqlEncoder(simplejson.JSONEncoder):
       for method in methods:
         output[method] = getattr(obj, method)()
       return output
+      
+    elif isinstance(obj, db.GeoPt):
+      return {'latitude':obj.lat, 'longitude':obj.lon}
 
     return simplejson.JSONEncoder.default(self, obj)
 
