@@ -1,5 +1,5 @@
 class Location < ActiveRecord::Base
-  default_scope :conditions => 'locations.deleted_at IS NOT NULL'
+  default_scope :conditions => 'locations.deleted_at IS NULL'
   
   def self.existing_address(location)
     location.send :attach_geocode
