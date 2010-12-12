@@ -51,4 +51,8 @@ Spec::Runner.configure do |config|
   # == Notes
   #
   # For more information take a look at Spec::Runner::Configuration and Spec::Runner
+  
+  def email_fixture(name)
+    File.read(File.join(Rails.root, 'spec', 'fixtures', 'emails', name.to_s))
+  end
 end

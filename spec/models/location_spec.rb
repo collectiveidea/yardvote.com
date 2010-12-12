@@ -37,13 +37,13 @@ describe Location do
     it "should work with multi line body" do
       location = Location.new_from_email(email_fixture(:red_address_two_lines))
       location.valid?
-      location.to_location.to_s.should == "1600 Pennsylvania Ave Nw\nWashington, DC 20006"
+      location.to_location.to_s.should == "1600 Pennsylvania Ave NW\nWashington, DC 20006"
     end
     
     it "should work with multi line body and email signature" do
       location = Location.new_from_email(email_fixture(:red_address_two_lines_sig))
       location.valid?
-      location.to_location.to_s.should == "1600 Pennsylvania Ave Nw\nWashington, DC 20006"
+      location.to_location.to_s.should == "1600 Pennsylvania Ave NW\nWashington, DC 20006"
     end
   end
 end

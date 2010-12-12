@@ -19,12 +19,6 @@ GIT
   specs:
     exception_notification (2.3.3.0)
 
-GIT
-  remote: git://github.com/technoweenie/acts_as_paranoid.git
-  revision: b0a5d2b8ba89eae03f673e4af2e52619260fcc30
-  specs:
-    acts_as_paranoid (0.0.1)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -69,7 +63,6 @@ PLATFORMS
 DEPENDENCIES
   acts_as_audited
   acts_as_geocodable (= 1.0.4)
-  acts_as_paranoid (= 0.0.1)!
   awesomeness (= 0.0.1)!
   exception_notification!
   google_analytics!
