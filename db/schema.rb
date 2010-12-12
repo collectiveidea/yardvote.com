@@ -23,9 +23,9 @@ ActiveRecord::Schema.define(:version => 20081004194638) do
     t.datetime "created_at"
   end
 
+  add_index "audits", ["auditable_id", "auditable_type"], :name => "auditable_index"
   add_index "audits", ["created_at"], :name => "index_audits_on_created_at"
   add_index "audits", ["user_id", "user_type"], :name => "user_index"
-  add_index "audits", ["auditable_id", "auditable_type"], :name => "auditable_index"
 
   create_table "geocodes", :force => true do |t|
     t.decimal "latitude",    :precision => 15, :scale => 12
@@ -39,14 +39,14 @@ ActiveRecord::Schema.define(:version => 20081004194638) do
     t.string  "precision"
   end
 
-  add_index "geocodes", ["precision"], :name => "geocodes_precision_index"
   add_index "geocodes", ["country"], :name => "geocodes_country_index"
-  add_index "geocodes", ["postal_code"], :name => "geocodes_postal_code_index"
-  add_index "geocodes", ["region"], :name => "geocodes_region_index"
-  add_index "geocodes", ["locality"], :name => "geocodes_locality_index"
-  add_index "geocodes", ["query"], :name => "geocodes_query_index", :unique => true
   add_index "geocodes", ["latitude"], :name => "geocodes_latitude_index"
+  add_index "geocodes", ["locality"], :name => "geocodes_locality_index"
   add_index "geocodes", ["longitude"], :name => "geocodes_longitude_index"
+  add_index "geocodes", ["postal_code"], :name => "geocodes_postal_code_index"
+  add_index "geocodes", ["precision"], :name => "geocodes_precision_index"
+  add_index "geocodes", ["query"], :name => "geocodes_query_index", :unique => true
+  add_index "geocodes", ["region"], :name => "geocodes_region_index"
 
   create_table "geocodings", :force => true do |t|
     t.integer "geocodable_id"
@@ -55,8 +55,8 @@ ActiveRecord::Schema.define(:version => 20081004194638) do
   end
 
   add_index "geocodings", ["geocodable_id"], :name => "geocodings_geocodable_id_index"
-  add_index "geocodings", ["geocode_id"], :name => "geocodings_geocode_id_index"
   add_index "geocodings", ["geocodable_type"], :name => "geocodings_geocodable_type_index"
+  add_index "geocodings", ["geocode_id"], :name => "geocodings_geocode_id_index"
 
   create_table "locations", :force => true do |t|
     t.string   "street"

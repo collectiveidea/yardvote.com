@@ -1,3 +1,0 @@
-[submodule "vendor/plugins/rspec_on_rails_matchers"]
-	path = vendor/plugins/rspec_on_rails_matchers
-	url = git://github.com/brandon/rspec-on-rails-matchers.git

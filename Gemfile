@@ -12,7 +12,7 @@ gem 'exception_notification',
   :branch => '2-3-stable'
 
 group :development do
-  gem 'sqlite3-ruby', '1.2.5', :require => "sqlite3"
+  gem 'pg'
   gem 'heroku'
 end
 

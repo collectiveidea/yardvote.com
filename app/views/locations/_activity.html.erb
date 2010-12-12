@@ -1,6 +1,6 @@
 <%- 
 counts = Location::SIGN_OPTIONS.keys.map do |color|
-  "(SELECT count(id) FROM locations as l WHERE date(l.created_at) = date(locations.created_at) AND l.signs = '#{color}') as #{color.downcase}_count"
+  "(SELECT count(id) FROM locations as l WHERE date(l.created_at) = location_date AND l.signs = '#{color}') as #{color.downcase}_count"
 end.join(', ')
 
 result = Location.all(:select => "date(locations.created_at) as location_date, #{counts}", :group => 'location_date')
