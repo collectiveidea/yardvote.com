@@ -32,7 +32,7 @@ class Location < ActiveRecord::Base
   validates_inclusion_of :signs, :in => SIGN_OPTIONS, :message => "must be #{SIGN_OPTIONS.keys.to_sentence(:connector => 'or')}"
   validate :check_geocode_precision
   
-  named_scope :recent, :order => 'created_at DESC, updated_at DESC'
+  named_scope :recent, :order => 'locations.created_at DESC, locations.updated_at DESC'
   named_scope :with_geocodes, :include => {:geocoding => :geocode}
   
   named_scope :in_box, lambda{|northeast, southwest|
