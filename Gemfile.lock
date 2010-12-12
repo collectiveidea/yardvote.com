@@ -1,3 +1,30 @@
+GIT
+  remote: git://github.com/collectiveidea/awesomeness.git
+  revision: 35e0249c09618ddf965ace9ec6b64f134e9ca4dd
+  specs:
+    awesomeness (0.0.1)
+
+GIT
+  remote: git://github.com/collectiveidea/google_analytics.git
+  revision: d32d8699928f7311d65964745e32b17054dbdf0d
+  specs:
+    google_analytics (1.1.4)
+      actionpack
+      activesupport
+
+GIT
+  remote: git://github.com/rails/exception_notification.git
+  revision: f9865f54b415e4f87e582f6256a811d5c5f54d7b
+  branch: 2-3-stable
+  specs:
+    exception_notification (2.3.3.0)
+
+GIT
+  remote: git://github.com/technoweenie/acts_as_paranoid.git
+  revision: b0a5d2b8ba89eae03f673e4af2e52619260fcc30
+  specs:
+    acts_as_paranoid (0.0.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -13,16 +40,13 @@ GEM
     activesupport (2.3.9)
     acts_as_audited (1.1.0)
       activerecord (>= 2.1)
-    acts_as_geocodable (2.0.1)
-      graticule (>= 2.0.0)
-    diff-lcs (1.1.2)
-    graticule (2.0.0)
-      activesupport
+    acts_as_geocodable (1.0.4)
+      graticule (>= 1.0.0.pre2)
+    graticule (1.0.0.pre2)
+      activesupport (= 2.3.9)
       happymapper (>= 0.3.0)
-      i18n
     happymapper (0.3.2)
       libxml-ruby (~> 1.1.3)
-    i18n (0.5.0)
     libxml-ruby (1.1.4)
     rack (1.1.0)
     rails (2.3.9)
@@ -33,14 +57,7 @@ GEM
       activesupport (= 2.3.9)
       rake (>= 0.8.3)
     rake (0.8.7)
-    rspec (2.2.0)
-      rspec-core (~> 2.2)
-      rspec-expectations (~> 2.2)
-      rspec-mocks (~> 2.2)
-    rspec-core (2.2.1)
-    rspec-expectations (2.2.0)
-      diff-lcs (~> 1.1.2)
-    rspec-mocks (2.2.0)
+    rspec (1.3.0)
     rspec-rails (1.3.2)
       rack (>= 1.0.0)
       rspec (>= 1.3.0)
@@ -51,8 +68,13 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_audited
-  acts_as_geocodable
-  graticule
+  acts_as_geocodable (= 1.0.4)
+  acts_as_paranoid (= 0.0.1)!
+  awesomeness (= 0.0.1)!
+  exception_notification!
+  google_analytics!
+  graticule (= 1.0.0.pre2)
   rails (= 2.3.9)
-  rspec-rails (= 1.3.2)
+  rspec (~> 1.3.0)
+  rspec-rails (~> 1.3.0)
   sqlite3-ruby (= 1.2.5)

@@ -4,7 +4,8 @@ describe Location do
   describe "#new_from_email" do
     it "should be subject" do
       location = Location.new_from_email(email_fixture(:red_no_subject))
-      location.should have_error_on(:signs)
+      location.valid?
+      location.errors.on(:signs).should_not be_blank
     end
     
     it "should require body" do
