@@ -13,6 +13,7 @@ gem 'exception_notification',
 
 group :development do
   gem 'sqlite3-ruby', '1.2.5', :require => "sqlite3"
+  gem 'heroku'
 end
 
 group :test do

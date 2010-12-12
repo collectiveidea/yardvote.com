@@ -1,4 +1,6 @@
 class Location < ActiveRecord::Base
+  default_scope :conditions => 'locations.deleted_at IS NOT NULL'
+  
   def self.existing_address(location)
     location.send :attach_geocode
     # find others with the same address
@@ -25,7 +27,6 @@ class Location < ActiveRecord::Base
   acts_as_geocodable :address => {:street => :street, :locality => :city,
 	  :region => :state, :postal_code => :zip}, :normalize_address => true
 	
-	acts_as_paranoid
 	acts_as_audited
 
   validates_inclusion_of :signs, :in => SIGN_OPTIONS, :message => "must be #{SIGN_OPTIONS.keys.to_sentence(:connector => 'or')}"
