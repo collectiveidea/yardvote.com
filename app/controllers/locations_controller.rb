@@ -3,7 +3,7 @@ class LocationsController < ApplicationController
   # GET /locations.xml
   def index
     # For ETags
-    @last = Location.find_with_deleted(:first, :order => 'updated_at DESC')
+    @last = Location.first(:order => 'updated_at DESC')
 
     if @last.nil? || stale?(:last_modified => @last.updated_at.utc, :etag => @last)
       respond_to do |format|
@@ -28,16 +28,16 @@ class LocationsController < ApplicationController
 
   def removed
     # ETags!
-    @last_updated_location = Location.find_with_deleted(:first, :order => 'updated_at DESC')
+    @last_updated_location = Location.first(:order => 'updated_at DESC')
     if @last_updated_location.nil? || stale?(:last_modified => @last_updated_location.updated_at.utc, :etag => @last_updated_location)
-      @locations = Location.with_geocodes.recent.find_only_deleted(:all)
+      @locations = Location.with_geocodes.recent.all(:conditions => 'locations.deleted_at IS NULL')
     end
   end
 
   # GET /locations/1
   # GET /locations/1.xml
   def show
-    @location = Location.find_with_deleted(params[:id])
+    @location = Location.fin(params[:id])
     
     if stale?(:last_modified => @location.updated_at.utc, :etag => @location)
       respond_to do |format|
@@ -61,7 +61,7 @@ class LocationsController < ApplicationController
 
   # GET /locations/1/edit
   def edit
-    @location = Location.find_with_deleted(params[:id])
+    @location = Location.find(params[:id])
   end
 
   # POST /locations
@@ -93,7 +93,7 @@ class LocationsController < ApplicationController
   # PUT /locations/1
   # PUT /locations/1.xml
   def update
-    @location = Location.find_with_deleted(params[:id])
+    @location = Location.find(params[:id])
 
     respond_to do |format|
       if @location.update_attributes(params[:location])
@@ -121,7 +121,7 @@ class LocationsController < ApplicationController
   end
   
   def recover
-    @location = Location.find_only_deleted(params[:id])
+    @location = Location.find(params[:id], :conditions => 'locations.deleted_at IS NULL')
     @location.recover!
     flash[:notice] = 'The location has been restored.'
     

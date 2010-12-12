@@ -20,7 +20,7 @@
       <td><%= link_to h(location.created_at.strftime('%d %B')), location, :class => 'show' %></td>
       <td><%= link_to 'Edit', edit_location_path(location) %></td>
       <td>
-        <%- if location.deleted? -%>
+        <%- if location.deleted_at? -%>
           <%= link_to 'Restore', location, :class => 'restore' %>
         <%- else -%>
           <%= link_to 'Remove', location, :class => 'destroy' %>
