@@ -3,6 +3,6 @@ counts = Location::SIGN_OPTIONS.keys.map do |color|
   "(SELECT count(id) FROM locations as l WHERE date(l.created_at) = date(locations.created_at) AND l.signs = '#{color}') as #{color.downcase}_count"
 end.join(', ')
 
-result = Location.all(:select => "date(created_at) as date, #{counts}", :group => 'date', :order => 'created_at')
+result = Location.all(:select => "date(locations.created_at) as location_date, #{counts}", :group => 'location_date')
 -%>
 <%= image_tag "http://chart.apis.google.com/chart?chs=100x20&cht=ls&chf=bg,s,2F3335&chco=0000FF,FF0000,FF00FF&chm=B,E6F2FA,0,0,0|B,f2a3a3,1,0,0|B,f1a6fc,2,0,0&chls=1,0,0&chd=t:#{result.map(&:blue_count).join(',')}|#{result.map(&:red_count).join(',')}|#{result.map(&:purple_count).join(',')}", :title => 'Graph of signs reported over time', :alt => 'Graph of signs reported over time' %>
